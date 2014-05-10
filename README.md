@@ -8,7 +8,7 @@ The game will end once the user isn't able to guess a word within the allowed am
 A final score will consist of the combined scores of the words that the user guessed in one 'winning streak'.
 
 
-? = ideas to implement if there is time left.
+**(?)** = ideas to implement if there is time left.
 
 Features
 ===========
