@@ -33,7 +33,7 @@ Features
     - button to start new game
 
 ##### SETTINGS VIEW
-- slider contRol for amount of incorrect guesses
+- slider control for amount of incorrect guesses
 - slider control for maximum word length
 - reset button to reset high scores and user statistics (?)
     - alert view if user wants to reset scores  (?)
