@@ -5,7 +5,7 @@ Hangman application for the iphone.
 This application will allow users to guess words that are randomly pulled from a dictionary. 
 If the word is guessed within the allowed amount of guesses the user will progress to the next word.
 The game will end once the user isn't able to guess a word within the allowed amount of guesses.
-A final score will consist of the combined scores of the words that the user guessed in one 'winning streak'.
+A final score will consist of the combined scores of the words that the user guessed in one game.
 
 
 **(?)** = ideas to implement if there is time left.
