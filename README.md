@@ -14,41 +14,41 @@ Features
 ===========
 
 - MAIN VIEW
--- word to be guessed label
--- text input
--- on screen keyboard
--- guessed-letter label
--- incorrect guesses left label
--- settings bar-button
--- high score bar-button
--- victory image (or gif animation)
--- game over image (or gif animation)
--- UIcolor change incrementally for each incorect guess 
--- alert view if match is won
---- show score for match and total score.
---- next match button.
--- alert view if game is over.
---- show correct word (that wasn't guessed)
---- button to view high scores
---- button to start new game
+..* word to be guessed label
+..* text input
+..* on screen keyboard
+..* guessed-letter label
+..* incorrect guesses left label
+..* settings bar-button
+..* high score bar-button
+..* victory image (or gif animation)
+..* game over image (or gif animation)
+..* UIcolor change incrementally for each incorect guess 
+..* alert view if match is won
+...* show score for match and total score.
+...* next match button.
+..* alert view if game is over.
+...* show correct word (that wasn't guessed)
+...* button to view high scores
+...* button to start new game
 
 - SETTINGS VIEW
--- slider contRol for amount of incorrect guesses
--- slider control for maximum word length
--- reset button to reset high scores and user statistics (?)
---- alert view if user wants to reset scores  (?)
+..* slider contRol for amount of incorrect guesses
+..* slider control for maximum word length
+..* reset button to reset high scores and user statistics (?)
+...* alert view if user wants to reset scores  (?)
 
 - HIGH SCORE VIEW
--- high score tabLe
---- shows total score
---- shows amount of words guessed
--- ability to click table items to go into detail view.
--- back button
+..* high score tabLe
+...* shows total score
+...* shows amount of words guessed
+..* ability to click table items to go into detail view.
+..* back button
 
 - HIGH SCORE DETAIL VIEW
--- table view
---- show all guessed words in the game and their seperate scores.
--- back button
+..* table view
+...* show all guessed words in the game and their seperate scores.
+...* back button
 
 
 Framework and libraries.
@@ -56,4 +56,4 @@ Framework and libraries.
 - Objective - C
 - Foundation
 - Cocoa Touch
--- Core Data (still uncertain, for high scores).
+..* Core Data (still uncertain, for high scores).
