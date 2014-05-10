@@ -37,6 +37,7 @@ Features
 - slider control for maximum word length
 - reset button to reset high scores and user statistics **(?)**
     - alert view if user wants to reset scores  **(?)**
+- save settings button
 
 ##### HIGH SCORE VIEW
 - high score table
