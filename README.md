@@ -14,23 +14,23 @@ Features
 ===========
 
 - MAIN VIEW
-..* word to be guessed label
-..* text input
-..* on screen keyboard
-..* guessed-letter label
-..* incorrect guesses left label
-..* settings bar-button
-..* high score bar-button
-..* victory image (or gif animation)
-..* game over image (or gif animation)
-..* UIcolor change incrementally for each incorect guess 
-..* alert view if match is won
-...* show score for match and total score.
-...* next match button.
-..* alert view if game is over.
-...* show correct word (that wasn't guessed)
-...* button to view high scores
-...* button to start new game
+- word to be guessed label
+- text input
+- on screen keyboard
+- guessed-letter label
+- incorrect guesses left label
+- settings bar-button
+- high score bar-button
+- victory image (or gif animation)
+- game over image (or gif animation)
+- UIcolor change incrementally for each incorect guess 
+* alert view if match is won
+..* show score for match and total score.
+..* next match button.
+* alert view if game is over.
+..* show correct word (that wasn't guessed)
+..* button to view high scores
+..* button to start new game
 
 - SETTINGS VIEW
 ..* slider contRol for amount of incorrect guesses
