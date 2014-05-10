@@ -25,7 +25,7 @@ Features
 9. game over image (or gif animation)
 10. UIcolor change incrementally for each incorect guess 
 11. alert view if match is won
-** show score for match and total score.
+12.     show score for match and total score.
 ** next match button.
 12. alert view if game is over.
 ⋅⋅* show correct word (that wasn't guessed)
