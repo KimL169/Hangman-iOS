@@ -27,7 +27,7 @@
 		3B4544BA190F9D6A00B05030 /* HighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4544B9190F9D6A00B05030 /* HighScoreViewController.m */; };
 		3B4544BD190FAB0D00B05030 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4544BC190FAB0D00B05030 /* History.m */; };
 		3B50B753191E395A0062207A /* HighScoreDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B50B752191E395A0062207A /* HighScoreDetailViewController.m */; };
-		3B50B75C191E449A0062207A /* mockup.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B50B75A191E449A0062207A /* mockup.png */; };
+		3B50B75F191E53A40062207A /* mockup.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B50B75E191E53A40062207A /* mockup.png */; };
 		3B61D63A191243B40008D7A5 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B61D639191243B40008D7A5 /* words.plist */; };
 		3B6FD671190949AC00CB2C85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6FD670190949AC00CB2C85 /* Foundation.framework */; };
 		3B6FD673190949AC00CB2C85 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6FD672190949AC00CB2C85 /* CoreGraphics.framework */; };
@@ -85,7 +85,7 @@
 		3B4544BC190FAB0D00B05030 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		3B50B751191E395A0062207A /* HighScoreDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreDetailViewController.h; sourceTree = "<group>"; };
 		3B50B752191E395A0062207A /* HighScoreDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreDetailViewController.m; sourceTree = "<group>"; };
-		3B50B75A191E449A0062207A /* mockup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mockup.png; path = HangManApp/docs/mockup.png; sourceTree = "<group>"; };
+		3B50B75E191E53A40062207A /* mockup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mockup.png; sourceTree = "<group>"; };
 		3B61D639191243B40008D7A5 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
 		3B6FD66D190949AC00CB2C85 /* HangManApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HangManApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6FD670190949AC00CB2C85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -178,19 +178,18 @@
 			name = models;
 			sourceTree = "<group>";
 		};
-		3B50B75B191E449A0062207A /* docs */ = {
+		3B50B75D191E53620062207A /* docs */ = {
 			isa = PBXGroup;
 			children = (
-				3B50B75A191E449A0062207A /* mockup.png */,
+				3B50B75E191E53A40062207A /* mockup.png */,
 			);
-			name = docs;
-			path = ..;
+			path = docs;
 			sourceTree = "<group>";
 		};
 		3B6FD664190949AC00CB2C85 = {
 			isa = PBXGroup;
 			children = (
-				3B50B75B191E449A0062207A /* docs */,
+				3B50B75D191E53620062207A /* docs */,
 				3B6FD69B190949AC00CB2C85 /* HangManAppTests */,
 				3B6FD66F190949AC00CB2C85 /* Frameworks */,
 				3B6FD66E190949AC00CB2C85 /* Products */,
@@ -359,7 +358,7 @@
 			files = (
 				3B40CDEA191633FB003E7CE1 /* giphy18.png in Resources */,
 				3B40CDE9191633FB003E7CE1 /* giphy17.png in Resources */,
-				3B50B75C191E449A0062207A /* mockup.png in Resources */,
+				3B50B75F191E53A40062207A /* mockup.png in Resources */,
 				3B40CDE7191633FB003E7CE1 /* giphy15.png in Resources */,
 				3B40CDE4191633FB003E7CE1 /* giphy12.png in Resources */,
 				3B40CDE2191633FB003E7CE1 /* giphy10.png in Resources */,
