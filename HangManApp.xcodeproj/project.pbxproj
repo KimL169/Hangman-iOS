@@ -178,14 +178,22 @@
 			name = models;
 			sourceTree = "<group>";
 		};
+		3B50B757191E3EB40062207A /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				3B50B754191E3D080062207A /* mockup.png */,
+			);
+			name = docs;
+			sourceTree = "<group>";
+		};
 		3B6FD664190949AC00CB2C85 = {
 			isa = PBXGroup;
 			children = (
-				3B6FD676190949AC00CB2C85 /* HangManApp */,
 				3B6FD69B190949AC00CB2C85 /* HangManAppTests */,
 				3B6FD66F190949AC00CB2C85 /* Frameworks */,
 				3B6FD66E190949AC00CB2C85 /* Products */,
-				3B50B754191E3D080062207A /* mockup.png */,
+				3B50B757191E3EB40062207A /* docs */,
+				3B6FD676190949AC00CB2C85 /* HangManApp */,
 			);
 			sourceTree = "<group>";
 		};
