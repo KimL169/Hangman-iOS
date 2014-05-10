@@ -39,7 +39,7 @@ Features
     - alert view if user wants to reset scores  (?)
 
 ##### HIGH SCORE VIEW
-- high score tabLe
+- high score table
     - shows total score
     - shows amount of words guessed
 - ability to click table items to go into detail view.
