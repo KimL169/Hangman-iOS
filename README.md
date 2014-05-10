@@ -35,15 +35,15 @@ Features
 ##### SETTINGS VIEW
 - slider control for amount of incorrect guesses
 - slider control for maximum word length
-- reset button to reset high scores and user statistics (?)
-    - alert view if user wants to reset scores  (?)
+- reset button to reset high scores and user statistics **(?)**
+    - alert view if user wants to reset scores  **(?)**
 
 ##### HIGH SCORE VIEW
 - high score table
     - shows total score
     - shows amount of words guessed
 - ability to click table items to go into detail view.
-- Statistics
+- Statistics **(?)**
     - number of games played
     - average word length
     - win/loss ratio
