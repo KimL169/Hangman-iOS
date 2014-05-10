@@ -43,6 +43,12 @@ Features
     - shows total score
     - shows amount of words guessed
 - ability to click table items to go into detail view.
+- Statistics
+    - number of games played
+    - Average word length
+    - win/loss ratio
+    - matches played
+    - average score
 - back button
 
 ##### HIGH SCORE DETAIL VIEW
