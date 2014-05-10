@@ -13,7 +13,7 @@ A final score will consist of the combined scores of the words that the user gue
 Features
 ===========
 
-## MAIN VIEW
+##### MAIN VIEW
 - word to be guessed label
 - text input
 - on screen keyboard
@@ -32,20 +32,20 @@ Features
 ..* button to view high scores
 ..* button to start new game
 
-## SETTINGS VIEW
+##### SETTINGS VIEW
 ..* slider contRol for amount of incorrect guesses
 ..* slider control for maximum word length
 ..* reset button to reset high scores and user statistics (?)
 ...* alert view if user wants to reset scores  (?)
 
-## HIGH SCORE VIEW
+##### HIGH SCORE VIEW
 ..* high score tabLe
 ...* shows total score
 ...* shows amount of words guessed
 ..* ability to click table items to go into detail view.
 ..* back button
 
-## HIGH SCORE DETAIL VIEW
+##### HIGH SCORE DETAIL VIEW
 ..* table view
 ...* show all guessed words in the game and their seperate scores.
 ...* back button
