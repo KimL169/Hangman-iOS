@@ -33,22 +33,22 @@ Features
     - button to start new game
 
 ##### SETTINGS VIEW
-..* slider contRol for amount of incorrect guesses
-..* slider control for maximum word length
-..* reset button to reset high scores and user statistics (?)
-...* alert view if user wants to reset scores  (?)
+- slider contRol for amount of incorrect guesses
+- slider control for maximum word length
+- reset button to reset high scores and user statistics (?)
+    - alert view if user wants to reset scores  (?)
 
 ##### HIGH SCORE VIEW
-..* high score tabLe
-...* shows total score
-...* shows amount of words guessed
-..* ability to click table items to go into detail view.
-..* back button
+- high score tabLe
+    - shows total score
+    - shows amount of words guessed
+- ability to click table items to go into detail view.
+- back button
 
 ##### HIGH SCORE DETAIL VIEW
-..* table view
-...* show all guessed words in the game and their seperate scores.
-...* back button
+- table view
+    - show all guessed words in the game and their seperate scores.
+    - back button
 
 
 Framework and libraries.
@@ -56,4 +56,4 @@ Framework and libraries.
 - Objective - C
 - Foundation
 - Cocoa Touch
-..* Core Data (still uncertain, for high scores).
+    - Core Data (still uncertain, for high scores).
