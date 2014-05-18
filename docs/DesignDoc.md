@@ -85,56 +85,53 @@ Objective - C Style Guide
 
 #### Spacing And Formatting
 
-- Spaces vs. Tabs
+###### Spaces vs. Tabs
 
 Use only spaces, and indent 4 spaces at a time.
 
-- Line Length
+###### Line Length
 
 The maximum line length for Objective-C and Objective-C++ files is 100 columns.
 
-- Method Declarations and Definitions
+###### Method Declarations and Definitions
 
 One space should be used between the - or + and the return type, and no spacing in the parameter list except between parameters.
 
-- Method Invocations
+###### Method Invocations
 
 Method invocations should be formatted much like method declarations. When there's a choice of formatting styles, follow the convention already used in a given source file.
 
-- Exceptions
+###### Exceptions
 
 Format exceptions with each @ label on its own line and a space between the @ label and the opening brace ({), as well as between the @catch and the caught object declaration.
 
-- Protocols
+###### Protocols
 
 There should not be a space between the type identifier and the name of the protocol encased in angle brackets.
 
-- Blocks
+###### Blocks
 
 Code inside blocks should be indented four spaces.
 
 #### Naming
 
-- Any class, category, method, or variable name may use all capitals for initialisms within the name.
-
-
-- File Names
+###### File Names
 
 File names should reflect the name of the class implementation that they contain—including case. Follow the convention that your project uses. 
 
-- Class Names
+###### Class Names
 
 Class names (along with category and protocol names) should start as uppercase and use mixed case to delimit words.
 
-- Category Names
+###### Category Names
 
 Category names should start with a 2 or 3 character prefix identifying the category as part of a project or open for general use. The category name should incorporate the name of the class it's extending.
 
-- Objective-C Method Names
+###### Objective-C Method Names
 
 Method names should start as lowercase and then use mixed case. Each named parameter should also start as lowercase.
 
-- Variable Names
+###### Variable Names
 
 Variables names start with a lowercase and use mixed case to delimit words. Instance variables have leading underscores. For example: myLocalVariable, _myInstanceVariable.
 
