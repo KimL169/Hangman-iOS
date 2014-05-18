@@ -14,8 +14,7 @@
 @implementation History
 
 
-//check if new highscore was achieved if so, save this high score to the database.
-- (BOOL)newHighScore: (NSInteger)score
+- (BOOL) newHighScore: (NSInteger)score
           difficulty:(NSInteger)difficulty
           matchCount:(NSInteger)matchCount {
     
@@ -54,7 +53,7 @@
     return  [(AppDelegate *)[[UIApplication sharedApplication]delegate]managedObjectContext];
 }
 
-- (void)createScore {
+- (void) createScore {
     //get the managed Object context
     
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -85,7 +84,7 @@
     }
 }
 
-- (void)deleteLastScore {
+- (void) deleteLastScore {
 
     NSManagedObject *object = [[self fetchScores]firstObject];
     NSManagedObjectContext *context = [object managedObjectContext];
@@ -98,7 +97,7 @@
 
 }
 
-- (void)deleteAllScores {
+- (void) deleteAllScores {
     NSArray *historyObjects = [self fetchScores];
     NSError *error;
     for ( id s in historyObjects) {

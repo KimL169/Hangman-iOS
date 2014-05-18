@@ -24,9 +24,12 @@
     if (_fetchedResultsController != nil) {
         return  _fetchedResultsController;
     }
+    
+    //make a fetch request and set GameScore as the entity to fetch.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"GameScore" inManagedObjectContext:[self managedObjectContext]];
     [fetchRequest setEntity:entity];
+    
     // Specify criteria for filtering which objects to fetch
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"gameScore" ascending:NO];
     NSArray *sortDescriptors = [[NSArray alloc]initWithObjects:sortDescriptor, nil];
@@ -38,6 +41,7 @@
     return _fetchedResultsController;
 }
 
+//get the managedObjectContext from the app delegate.
 - (NSManagedObjectContext *)managedObjectContext {
     return  [(AppDelegate *)[[UIApplication sharedApplication]delegate]managedObjectContext];
 }
@@ -98,7 +102,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    //configure cell..
+    //configure cell.
     GameScore *gameScore = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.textLabel.text = [NSString stringWithFormat:@"Score: %d", [[gameScore gameScore] intValue]];
@@ -155,26 +159,8 @@
             NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
             return;
         }
-        
     }
 }
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Navigation

@@ -122,7 +122,6 @@
                     [self updateUI:NO];
                 } else {
                     [self updateUI:NO];
-                    
                     [self gameOverMessage];
                 }
 
@@ -189,9 +188,9 @@
         
     //if game was lost
     } else if (self.game.gameLost == YES) {
-        
-        UIImage *hangManImage = [[UIImage alloc]initWithContentsOfFile:@"moon-01.png"];
-        self.hangmanImage.image = hangManImage;
+        self.hangmanImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        self.hangmanImage.image = [UIImage imageNamed:@"moon-01"];
+        [self.view addSubview:self.hangmanImage];
         
     } else if (self.game.match == NO) {
         
@@ -215,10 +214,10 @@
         //Update guesses left
         self.incorrectGuessesLeftLabel.text = [NSString stringWithFormat:@"Guesses left: %lu",(unsigned long)self.game.incorrectGuessesLeft];
     }
-    
+    //if it's a new game, reset ui colors and update the labels.
     if (newGame == YES) {
 
-        //change the colors to the starting colors.
+        //change the colors to the starting colors (white background,
         self.colorSetting = 1;
         self.view.backgroundColor = [UIColor whiteColor];
         self.wordLabel.textColor = [UIColor blackColor];

@@ -12,13 +12,17 @@
 #pragma mark - Fetching
 
 - (void)performFetch
-{
+{   //check if there is a fetch controller.
     if (self.fetchedResultsController) {
+        
+        //if a predicate is set perform a fetch with predicate.
         if (self.fetchedResultsController.fetchRequest.predicate) {
             if (self.debug) NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName, self.fetchedResultsController.fetchRequest.predicate);
         } else {
+            //perform a fetch without predicate.
             if (self.debug) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName);
         }
+        //perform the fetch and check for errors.
         NSError *error;
         BOOL success = [self.fetchedResultsController performFetch:&error];
         if (!success) NSLog(@"[%@ %@] performFetch: failed", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -26,12 +30,15 @@
     } else {
         if (self.debug) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
+    //reload the table view data.
     [self.tableView reloadData];
 }
 
+//setter for the FetchedResultsController.
 - (void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
 {
     NSFetchedResultsController *oldfrc = _fetchedResultsController;
+    //if the new controller is not the same as teh old one, change the controller to the new one.
     if (newfrc != oldfrc) {
         _fetchedResultsController = newfrc;
         newfrc.delegate = self;
@@ -88,6 +95,7 @@
     [self.tableView beginUpdates];
 }
 
+//if changes to a section occured.
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
 		   atIndex:(NSUInteger)sectionIndex
@@ -105,13 +113,15 @@
     }
 }
 
-
+//if changes to an object occured.
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
 	   atIndexPath:(NSIndexPath *)indexPath
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(NSIndexPath *)newIndexPath
-{		
+{
+    
+    // responses for type (insert, delete, update, move).
     switch(type)
     {
         case NSFetchedResultsChangeInsert:

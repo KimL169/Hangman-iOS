@@ -56,7 +56,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h8p-xq-ovT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3187" y="-619"/>
+            <point key="canvasLocation" x="4355" y="-507"/>
         </scene>
         <!--High Score Detail Table View Controller - High Score Details-->
         <scene sceneID="oKL-bH-5eu">
@@ -85,7 +85,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBQ-Qq-XZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3619" y="-618"/>
+            <point key="canvasLocation" x="4787" y="-506"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="rV5-Y2-ghB">
@@ -192,10 +192,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rCe-FH-TbC">
-                                <rect key="frame" x="40" y="112" width="240" height="222"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -233,7 +229,6 @@
                     <connections>
                         <outlet property="difficultyLabel" destination="sb5-cq-e4x" id="hWn-bj-v3w"/>
                         <outlet property="guessedLettersLabel" destination="cZQ-Mp-YpM" id="hDP-Tz-WX3"/>
-                        <outlet property="hangmanImage" destination="rCe-FH-TbC" id="Zt8-UD-wHu"/>
                         <outlet property="incorrectGuessesLeftLabel" destination="1PD-VQ-nds" id="Zja-hc-dwt"/>
                         <outlet property="letterInputTextfield" destination="OWG-1q-Nfp" id="d1R-T1-eVf"/>
                         <outlet property="matchCountLabel" destination="ZMz-07-yYl" id="bKW-LX-Nt9"/>
@@ -245,7 +240,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h4L-l5-tyG" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1784" y="273"/>
+            <point key="canvasLocation" x="3208" y="-135"/>
         </scene>
         <!--Flipside View Controller-->
         <scene sceneID="z9J-Vg-hzE">
@@ -376,7 +371,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xlJ-1o-FvB" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2565" y="108"/>
+            <point key="canvasLocation" x="3733" y="220"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7dp-M3-P87">
@@ -394,7 +389,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZi-IQ-EvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2661" y="-619"/>
+            <point key="canvasLocation" x="3829" y="-507"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

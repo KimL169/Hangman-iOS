@@ -10,6 +10,7 @@
 #import "GameScore.h"
 #import "MatchScore.h"
 #import "HighScoreDetailTableViewController.h"
+#import "CoreDataTableViewController.h"
 
 
 @interface HighScoreDetailTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>

@@ -21,7 +21,7 @@
 
 #pragma mark initialization
 
-- (instancetype)init {
+- (instancetype) init {
     
     self = [super init]; //super's designated initializer
     
@@ -77,24 +77,24 @@
 
 #pragma mark - score setup
 
-- (NSInteger)setupBaseScore: (NSInteger)charactersInWord {
+- (NSInteger) setupBaseScore: (NSInteger)charactersInWord {
     return charactersInWord * 30;
 }
 
-- (void)updateMatchScore {
+- (void) updateMatchScore {
     if (self.matchScore > 0) {
         self.matchScore -= 5;
     }
 }
 
-- (void)updateGameScore { self.gameScore += self.matchScore; }
+- (void) updateGameScore { self.gameScore += self.matchScore; }
 
 
 
 #pragma mark - create game settings
 
 //set up game settings, if there are user settings present, load them, otherwise create default settings.
-- (void)createDefaultGameSettings {
+- (void) createDefaultGameSettings {
     
     // create user defaults to store settings
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -260,7 +260,7 @@
 #pragma mark - utility functions.
 
 //returns the number of unique characters in a word.
-- (NSInteger)checkUniqueCharactersInWord: (NSString *)word {
+- (NSInteger) checkUniqueCharactersInWord: (NSString *)word {
     //get all the unique characters in a string.
     NSString *uniqueCharactersInWord = [[NSString alloc]init];
     
@@ -285,7 +285,7 @@
 }
 
 //return the right incorrectGuessesSetting for the difficulty level.
-- (NSUInteger)returnIncorrectGuessesAccordingToDifficulty {
+- (NSUInteger) returnIncorrectGuessesAccordingToDifficulty {
     
     switch (self.difficultyRating) {
         case 1:

@@ -118,7 +118,7 @@
     XCTAssertEqual([score.difficulty intValue], 6, @"difficulty should be correct");
 }
 
-- (void) testHighScoresShouldNotBeMoreTooMuch {
+- (void) testHighScoresShouldNotBeTooMany {
     
     History *history = [[History alloc]init];
     
@@ -127,7 +127,7 @@
     
     //make more than 10 new scores
     for (int i = 1; i< 15; i++) {
-        [history newHighScore:i difficulty:6 matchCount:9];
+        [history newHighScore:i difficulty:7 matchCount:i];
     }
     
     //fetch the scores
