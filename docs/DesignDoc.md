@@ -71,23 +71,13 @@ Classes and methods
 #### History
 **This class implements the methods for storage, retrieval and deletion of high scores.**
 
-//check if a new high score was acheived if so, save it.
-//make sure the database only contains 10 records and delete the lowest
-// if necessary.
 - (BOOL) newHighScore: (NSInteger)score
           difficulty:(NSInteger)difficulty
           matchCount:(NSInteger)matchCount;
 
-//saves a new game score to the database.
 - (void) createScore;
-
-//fetch all the records from the database.
 - (NSArray *) fetchScores;
-
-//delete all records from the database.
 - (void) deleteAllScores;
-
-//delete only the last(lowest) score from the database.
 - (void) deleteLastScore;
 
 Objective - C Style Guide 
@@ -144,7 +134,7 @@ Category names should start with a 2 or 3 character prefix identifying the categ
 
 Method names should start as lowercase and then use mixed case. Each named parameter should also start as lowercase.
 
-Variable Names
+- Variable Names
 
 Variables names start with a lowercase and use mixed case to delimit words. Instance variables have leading underscores. For example: myLocalVariable, _myInstanceVariable.
 
