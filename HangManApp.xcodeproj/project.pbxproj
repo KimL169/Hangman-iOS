@@ -154,7 +154,7 @@
 		};
 /* End PBXFrameworksBuildPhase section */
 
-/* Begin PBXGroup section  */
+/* Begin PBXGroup section */
 		3B40CDC8191633E0003E7CE1 /* victory images */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,11 +239,11 @@
 		3B6FD676190949AC00CB2C85 /* HangManApp */ = {
 			isa = PBXGroup;
 			children = (
-				3B6FD682190949AC00CB2C85 /* Main_iPhone.storyboard */,
 				3BB748BC1925FB5B00B24C53 /* HighScoreTableViewController.h */,
 				3BB748BD1925FB5B00B24C53 /* HighScoreTableViewController.m */,
 				3B5D5B4B192622F100E08FD7 /* HighScoreDetailTableViewController.h */,
 				3B5D5B4C192622F100E08FD7 /* HighScoreDetailTableViewController.m */,
+				3B6FD682190949AC00CB2C85 /* Main_iPhone.storyboard */,
 				3B6FD685190949AC00CB2C85 /* Main_iPad.storyboard */,
 				3B6FD688190949AC00CB2C85 /* MainViewController.h */,
 				3B6FD689190949AC00CB2C85 /* MainViewController.m */,
