@@ -34,10 +34,33 @@ When the custom game mode is selected, the user may select his own maximum word 
 The user can reset all his current high scores. He may also delete individual scores from the high score list should he wish to clean his list of all the 'noob difficulty' high scores he has set.
 
 
+
+### Other Features
+
+Gameplay must starts immediately upon launch. (unless the app was simply backgrounded, in which case gameplay, if in progress prior to backgrounding, should resume).
+
+The app's front side must display placeholders (e.g., hyphens) for yet-unguessed letters that make clear the word’s length.
+
+The app inform the user how many incorrect guesses he or she can still make before losing through a label as well as through progressive changes in the ui colors.
+
+The app indicate to the user which letters he or she has and hasn't guessed through an Attributed label that marks the guessed letters with a color (red for incorrect guess, green for correct).
+
+The user must be able to input guesses via an on-screen keyboard.
+
+The app accepts only non-numeric case-insensitive user input.
+
+Invalid input is ignored.
+
+The app has a new game button and a settings button, the new game button wil appear once a player has made his first guess. At this time the settings button will disappear. Players can only adjust settings at the beginning of each game.
+
+The player is congratulated upon setting a new high score. An image is shown when he loses a game and a gif animation is played upon setting a high score. Alert messages will allow the user to start a new game or view the highscores.
+
 ##Database
 
 The database is implemented using Core Data and contains two models: 'GameScore' and 'MatchScore'.
-For a visual representation of the database models please refer to the 'databasemockup.png' file in this folder.
+For a visual representation of the database models please refer to the 'datamodel design mockup' file in this folder.
+
+The User settings are saved in NSUserDefaults.
 
 #### GameScore
 -->> has_many matchscores
