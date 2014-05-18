@@ -51,7 +51,7 @@ For a visual representation of the database models please refer to the 'database
 
 - incorrectGuesses (int)
 - matchScore (int)
-- word (string
+- word (string)
 
 
 
@@ -71,15 +71,24 @@ Classes and methods
 #### History
 **This class implements the methods for storage, retrieval and deletion of high scores.**
 
-- (BOOL)newHighScore: (NSInteger)score
+//check if a new high score was acheived if so, save it.
+//make sure the database only contains 10 records and delete the lowest
+// if necessary.
+- (BOOL) newHighScore: (NSInteger)score
           difficulty:(NSInteger)difficulty
           matchCount:(NSInteger)matchCount;
 
-- (void)createScore;
-- (NSArray *)fetchScores;
+//saves a new game score to the database.
+- (void) createScore;
 
-- (void)deleteAllScores;
+//fetch all the records from the database.
+- (NSArray *) fetchScores;
 
+//delete all records from the database.
+- (void) deleteAllScores;
+
+//delete only the last(lowest) score from the database.
+- (void) deleteLastScore;
 
 Objective - C Style Guide 
 ========
