@@ -34,8 +34,8 @@ When the custom game mode is selected, the user may select his own maximum word 
 The user can reset all his current high scores. He may also delete individual scores from the high score list should he wish to clean his list of all the 'noob difficulty' high scores he has set.
 
 
-Database
-==========
+##Database
+
 The database is implemented using Core Data and contains two models: 'GameScore' and 'MatchScore'.
 For a visual representation of the database models please refer to the 'databasemockup.png' file in this folder.
 
@@ -55,10 +55,10 @@ For a visual representation of the database models please refer to the 'database
 
 
 
-Classes and methods
-========
+##Classes and methods
 
-## Models
+
+### Models
 
 #### HangManGame
 **This class implements the gameplay**
@@ -83,7 +83,7 @@ Classes and methods
 - (void) deleteLastScore;
 
 
-## Controllers
+### Controllers
 
 #### MainViewController
 This controller controlsthe main view of the hangman game, it initializes the HangManGame.
