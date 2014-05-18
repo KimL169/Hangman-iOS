@@ -66,12 +66,6 @@
     gameScore.gameScore = newScore;
     gameScore.difficulty = newDifficulty;
     gameScore.numberOfMatches = newMatchCount;
-    
-    MatchScore *matchScore = [NSEntityDescription insertNewObjectForEntityForName:@"MatchScore" inManagedObjectContext:context];
-    matchScore.word = @"word";
-
-    
-    [gameScore addMatchscoresObject:matchScore];
 
     //save the score
     NSError *error = nil;
@@ -113,7 +107,7 @@
     
 }
 
-- (NSArray *)fetchScores {
+- (NSArray *) fetchScores {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"GameScore" inManagedObjectContext:[self managedObjectContext]];
