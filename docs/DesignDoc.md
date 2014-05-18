@@ -2,7 +2,7 @@ Hangman Design Doc
 ===========
 
 
-# Features 
+## Features 
 These are the features that may differ from the original assignment.
 
 ### Matches and Games
