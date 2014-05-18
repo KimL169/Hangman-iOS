@@ -2,8 +2,7 @@ Hangman Design Doc
 ===========
 
 
-Features (that may differ from the assignment)
-==========
+# Features (that may differ from the assignment)
 
 ### Matches and Games
 A game consists of multiple matches (words that should be guessed). If a word is guessed than that counts as one match, afterwhich the player will automatically progress to the next word to be guessed. The scores of the individual matches are added to eachother and combined form the 'gamescore'. A player will continue guessing words until he either fails to guess a word or chooses to start a new game. If the user fails to guess a given word the game is over and the resulting score will be checked for a possible high score. If a highscore was reached the player will be rewarded with a message and some animation.
