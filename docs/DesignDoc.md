@@ -99,7 +99,6 @@ The User settings are saved in NSUserDefaults.
 - (BOOL) newHighScore: (NSInteger)score
           difficulty:(NSInteger)difficulty
           matchCount:(NSInteger)matchCount;
-
 - (void) createScore;
 - (NSArray *) fetchScores;
 - (void) deleteAllScores;
