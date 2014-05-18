@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="GameScore" representedClassName="GameScore" syncable="YES">
+        <attribute name="difficulty" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="gameScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="numberOfMatches" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="matchscores" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MatchScore" inverseName="gamescore" inverseEntity="MatchScore" syncable="YES"/>
+    </entity>
+    <entity name="MatchScore" representedClassName="MatchScore" syncable="YES">
+        <attribute name="incorrectGuesses" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="matchScore" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gamescore" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="GameScore" inverseName="matchscores" inverseEntity="GameScore" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="GameScore" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="MatchScore" positionX="160" positionY="-36" width="128" height="103"/>
+    </elements>
+</model>

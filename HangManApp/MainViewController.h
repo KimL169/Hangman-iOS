@@ -7,8 +7,9 @@
 //
 
 #import "FlipsideViewController.h"
-#import "HighScoreViewController.h"
+#import "HighScoreTableViewController.h"
 #import "History.h"
+#import "HangManGame.h"
 
 @interface MainViewController : UIViewController <FlipsideViewControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
@@ -16,6 +17,5 @@
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
 @property (nonatomic)BOOL gameStarted;
 
-@property (nonatomic) History *currentHistory;
 
 @end

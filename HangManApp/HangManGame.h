@@ -7,31 +7,40 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "History.h"
+#import "GameScore.h"
+#import "MatchScore.h"
 
 @interface HangManGame : NSObject
 
-@property (nonatomic) NSInteger matchScore;
-@property (nonatomic) NSInteger gameScore;
-@property (nonatomic) NSInteger gamesPlayed;
-@property (nonatomic) NSUInteger matchCount;
+@property (strong, nonatomic) History *history;
+
+@property (nonatomic)NSInteger matchScore;
+@property (nonatomic)NSInteger gameScore;
 @property (nonatomic) NSUInteger currentMatchNumber;
+
+@property (nonatomic) NSUInteger gameMode; //gamemode 1 = default(difficulty), 2 = custom.
 
 @property (nonatomic) BOOL match;
 @property (nonatomic) BOOL gameStarted;
-@property (nonatomic) BOOL gameWon;
+@property (nonatomic) BOOL newHighScore;
 @property (nonatomic) BOOL matchWon;
+@property (nonatomic) BOOL gameLost;
 
 @property (nonatomic, retain) NSString *correctWord;
 @property (nonatomic, strong) NSString *wrongLetters;
 @property (nonatomic) NSUInteger incorrectGuessesLeft;
 @property (nonatomic) NSUInteger incorrectGuessesSetting;
 @property (nonatomic, retain) NSString *updatedWordToGuess;
+@property (nonatomic) NSInteger difficultyRating;
+@property (nonatomic) NSInteger wordLengthMaximum;
 
 - (void) checkLetter: (NSString *) letterToCheck;
-- (void) setupNewWord: (NSString *) newWord;
-- (void) setupScore;
-
-- (NSString *) returnRandomWord;
+- (void) setupNewMatch: (NSString *) newWord;
+- (NSInteger)checkUniqueCharactersInWord: (NSString *)word;
+- (NSInteger)setupBaseScore: (NSInteger)charactersInWord;
+- (NSUInteger)returnIncorrectGuessesAccordingToDifficulty;
+- (NSString *)returnRandomWord;
 
 //designated innitializer
 - (instancetype)init;

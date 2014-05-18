@@ -7,13 +7,12 @@
 //
 
 #import "MainViewController.h"
-#import "HangmanWord.h"
-#import "HangManGame.h"
+
 
 
 @interface MainViewController ()
 
-@property (strong,nonatomic) HangManGame *game;
+@property (strong, nonatomic) HangManGame *game;
 
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (nonatomic, retain) IBOutlet UILabel *wordLabel;
@@ -22,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *matchCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *letterNonActiveLabel;
 @property (weak, nonatomic) IBOutlet UILabel *wordNonActiveLabel;
+@property (weak, nonatomic) IBOutlet UILabel *difficultyLabel;
 
 @property (nonatomic, retain) IBOutlet UIImageView * hangmanImage;
 @property (weak, nonatomic) IBOutlet UITextField *letterInputTextfield;
@@ -41,25 +41,24 @@
     return _game;
 }
 
-
 //method to start a new game.
 - (void) restartGame {
     
-    //re-enable the settings button
-    [self.settingsButton setEnabled:YES];
-    
     // initialize a new game
     self.game = [[HangManGame alloc]init];
-    
+
     //set up a newWord
-    [self.game setupNewWord:[self.game returnRandomWord]];
-//    [self.game setupNewWord:@"pop"];
+    [self.game setupNewMatch:[self.game returnRandomWord]];
     
     //update the UI
     [self updateUI:YES];
     
     //make keyboard appear
     [self.letterInputTextfield becomeFirstResponder];
+    
+    //set the settingsbutton title back to settings.
+    [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
+    [self.settingsButton setTag:1];
 }
 
 
@@ -67,11 +66,16 @@
 {
     [super viewDidLoad];
     
+    //hide the text input field.
+    [self.letterInputTextfield setHidden:YES];
     //set up a new word.
-    [self.game setupNewWord:[self.game returnRandomWord]];
-//    [self.game setupNewWord:@"pop"];
+    [self.game setupNewMatch:[self.game returnRandomWord]];
+
     //call updateUI to reset the images.
     [self updateUI:YES];
+    
+    //set the settingsbuttontag to 1 so it links to the settings menu.
+    [self.settingsButton setTag:1];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,39 +85,8 @@
 
 }
 
-// if retry button is pressed, set up a new game else Show High Score
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    //tag 1 = 'gameOverMessage, tag 2 = 'matchWonMessage', tag 3 = 'gameWonMessage'
-    if (alertView.tag == 1) {
-        if (buttonIndex == [alertView cancelButtonIndex]) {
-            //TODO show the highscore board.
-        } else {
-            //start a new game
-            [self restartGame];
-        }
-    } else if (alertView.tag == 2) {
-        if (buttonIndex == [alertView cancelButtonIndex]) {
-            //show the highscore board.
-        } else {
-//            [self.game setupNewWord:@"pop"];
-            [self.game setupNewWord:[self.game returnRandomWord]];
-            [self updateUI:YES];
-            [self.letterInputTextfield becomeFirstResponder];
-            // TODO
-        }
-    } else if (alertView.tag == 3) {
-        if (buttonIndex == [alertView cancelButtonIndex]) {
-            //TODO show the highscore board.
-        } else {
-            //start a new game.
-            [self restartGame];
-        }
-    }
 
-}
-
-
+#pragma mark - text field
 //perhapse change this name or seperate functions.
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)inputLetter {
     
@@ -127,8 +100,10 @@
     
     if ([inputLetter isEqual:filtered]) {
         
-        //disable the settings button
-        [self.settingsButton setEnabled:NO];
+        //change the settings/new game button.
+        [self.settingsButton setTitle:@"New Game" forState:UIControlStateNormal];
+        [self.settingsButton setTag:2];
+        
         
         //convert to lower case and check letter
         inputLetter = [inputLetter lowercaseString];
@@ -139,10 +114,20 @@
             
             //if this was the player's last guess.
             if (self.game.incorrectGuessesLeft == 0) {
-                //display game over message
-                [self updateUI:NO];
-                [self gameOverMessage];
                 
+                //check if new high score was reached, if so:
+                if ([self.game.history newHighScore:self.game.gameScore
+                                         difficulty:self.game.difficultyRating
+                                         matchCount:self.game.currentMatchNumber] == YES) {
+                    
+                    self.game.newHighScore = YES;
+                    [self updateUI:NO];
+                } else {
+                    [self updateUI:NO];
+                    
+                    [self gameOverMessage];
+                }
+
             } else {
                 //update the UIimages and guessedLetterLabel
                 [self updateGuessedLetterLabel:inputLetter];
@@ -154,9 +139,7 @@
             self.wordLabel.text = self.game.updatedWordToGuess;
             
             //check if the player has won a match or has won the game, else update guessedletterlabel.
-            if (self.game.gameWon == YES) {
-                [self updateUI:YES];
-            } else if (self.game.matchWon == YES){
+            if (self.game.matchWon == YES){
                 [self matchWonMessage];
             } else {
                 //moet de UI update method dit niet doen.
@@ -169,82 +152,15 @@
     
 }
 
-- (IBAction)gameOverMessage {
-    
-    NSString *message = [NSString stringWithFormat:@"The correct word was: %@", self.game.correctWord];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GAME OVER"
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:@"High Scores"
-                                          otherButtonTitles:@"Retry", nil];
-    [alert setTag:1];
-    [alert show];
-    [self.letterInputTextfield resignFirstResponder];
-}
-
-- (IBAction)matchWonMessage {
-    
-    NSString *message = [NSString stringWithFormat:@"Match Score: %ld  Total score: %ld", (long)self.game.matchScore, (long)self.game.gameScore];
-    
-    NSString *title = [NSString stringWithFormat:@"Match %ld of %lu won!", (long)self.game.currentMatchNumber, (unsigned long)self.game.matchCount];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"Next Match", nil];
-    [alert setTag:2];
-    [alert show];
-    [self.letterInputTextfield resignFirstResponder];
-}
-
-- (IBAction)gameWonMessage {
-    
-    NSString *message = [NSString stringWithFormat:@"Score: %ld", (long)self.game.gameScore];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GAME WON"
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:@"High Scores"
-                                          otherButtonTitles:@"New Game", nil];
-    [alert setTag:3];
-    [alert show];
-    [self.letterInputTextfield resignFirstResponder];
-}
-
-
-- (void)updateGuessedLetterLabel:(NSString *)letter {
-   
-    NSMutableAttributedString *labelText = [[NSMutableAttributedString alloc]initWithAttributedString:self.guessedLettersLabel.attributedText];
-    
-    
-    //get the range of the guessed letter in the labelstring, create an Attributed string with the label text to change the colour of the letter.
-    NSRange range = [self.guessedLettersLabel.text rangeOfString:letter];
-    
-    if (self.game.match == NO) {
-        
-        //replace letter in label with a red coloured one
-        [labelText setAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} range:range];
-        
-    } else if (self.game.match == YES) {
-        
-        //replace letter in label with a green coloured one.
-        [labelText setAttributes:@{NSForegroundColorAttributeName : [UIColor greenColor]} range:range];
-        
-    }
-    //update the label
-    self.guessedLettersLabel.attributedText = labelText;
-
-
-}
-
 
 #pragma mark - updateUI
+
 - (void)updateUI:(BOOL)newGame {
     
     self.scoreLabel.text = [NSString stringWithFormat:@"score: %ld", (long)self.game.matchScore];
     
-    if (self.game.gameWon == YES) {
+    //if new high score was acheived, show animation and high score message.
+    if (self.game.newHighScore == YES) {
         //TODO!!! animation when game is over!
         UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
         animatedImageView.animationImages = [NSArray arrayWithObjects:
@@ -270,10 +186,14 @@
         [animatedImageView startAnimating];
         [self.view addSubview: animatedImageView];
         
-        [self gameWonMessage];
+        [self newHighScoreMessage];
         
-    } else if (self.game.incorrectGuessesLeft == 0) {
-        //TODO
+    //if game was lost
+    } else if (self.game.gameLost == YES) {
+        
+        UIImage *hangManImage = [[UIImage alloc]initWithContentsOfFile:@"moon-01.png"];
+        self.hangmanImage.image = hangManImage;
+        
     } else if (self.game.match == NO) {
         
         //adjust to the color to the guessedLeftSettings so the changerate is according to the amount of guessses left.
@@ -288,6 +208,7 @@
             self.wordLabel.textColor = [UIColor whiteColor];
             self.scoreLabel.textColor = [UIColor whiteColor];
             self.matchCountLabel.textColor = [UIColor whiteColor];
+            self.difficultyLabel.textColor = [UIColor whiteColor];
             
             self.incorrectGuessesLeftLabel.textColor = [UIColor whiteColor];
             self.letterNonActiveLabel.textColor = [UIColor whiteColor];
@@ -296,11 +217,8 @@
         
         //Update guesses left
         self.incorrectGuessesLeftLabel.text = [NSString stringWithFormat:@"Guesses left: %lu",(unsigned long)self.game.incorrectGuessesLeft];
-        
-        
     }
     
-    //is dit wel netjes? Kijk of er een betere manier is.
     if (newGame == YES) {
 
         //change the colors to the starting colors.
@@ -313,20 +231,165 @@
         self.incorrectGuessesLeftLabel.textColor = [UIColor blackColor];
         self.letterNonActiveLabel.textColor = [UIColor blackColor];
         self.wordNonActiveLabel.textColor = [UIColor blackColor];
+        self.difficultyLabel.textColor = [UIColor blackColor];
         
-        self.matchCountLabel.text = [NSString stringWithFormat:@"game %lu/%lu", (unsigned long)self.game.currentMatchNumber, (unsigned long)self.game.matchCount];
+        self.matchCountLabel.text = [NSString stringWithFormat:@"match: %lu", (unsigned long)self.game.currentMatchNumber];
         self.hangmanImage.image = nil;
         self.wordLabel.text = @"";
         self.wordLabel.text = self.game.updatedWordToGuess;
         self.guessedLettersLabel.text = @"abcdefghijklmnopqrstuvwxyz";
         self.incorrectGuessesLeftLabel.text = [NSString stringWithFormat:@"Guesses left: %lu",(unsigned long)self.game.incorrectGuessesSetting];
+        
+        if (self.game.gameMode == 1) {
+            self.difficultyLabel.text = [NSString stringWithFormat:@"Difficulty: %@", [self difficulties:self.game.difficultyRating]];
+        } else if (self.game.gameMode == 2) {
+            self.difficultyLabel.text = @"Difficulty: Custom";
+        }
+
     }
+}
+
+- (void)updateGuessedLetterLabel:(NSString *)letter {
+    
+    NSMutableAttributedString *labelText = [[NSMutableAttributedString alloc]initWithAttributedString:self.guessedLettersLabel.attributedText];
+    
+    
+    //get the range of the guessed letter in the labelstring, create an Attributed string with the label text to change the colour of the letter.
+    NSRange range = [self.guessedLettersLabel.text rangeOfString:letter];
+    
+    if (self.game.match == NO) {
+        
+        //replace letter in label with a red coloured one
+        [labelText setAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} range:range];
+        
+    } else if (self.game.match == YES) {
+        
+        //replace letter in label with a green coloured one.
+        [labelText setAttributes:@{NSForegroundColorAttributeName : [UIColor greenColor]} range:range];
+        
+    }
+    //update the label
+    self.guessedLettersLabel.attributedText = labelText;
     
     
 }
 
 
+# pragma mark - alert messages
+
+// if retry button is pressed, set up a new game else Show High Score
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    //tag 1 = 'gameOverMessage, tag 2 = 'matchWonMessage', tag 3 = 'newHighScoreMessage', tag 4 = 'restartGameMessage'
+    if (alertView.tag == 1) {
+        if (buttonIndex == [alertView cancelButtonIndex]) {
+            
+            //show the high scores and restart game.
+            [self performSegueWithIdentifier:@"showHighScore" sender:self];
+            [self restartGame];
+        } else {
+            NSLog(@"Incorrect guessses left : %lu", (unsigned long)self.game.incorrectGuessesLeft);
+            //start a new game
+            [self restartGame];
+        }
+    } else if (alertView.tag == 2) {
+        //set up a new word, update ui and retrieve keyboard.
+        [self.game setupNewMatch:[self.game returnRandomWord]];
+        [self updateUI:YES];
+        [self.letterInputTextfield becomeFirstResponder];
+        
+    } else if (alertView.tag == 3) {
+        if (buttonIndex == [alertView cancelButtonIndex]) {
+            [self performSegueWithIdentifier:@"showHighScore" sender:self];
+            [self restartGame];
+        } else {
+            //start a new game.
+            [self restartGame];
+        }
+    } else if (alertView.tag == 4) {
+        if (buttonIndex == [alertView cancelButtonIndex]) {
+            //show the keyboards again
+            [self.letterInputTextfield becomeFirstResponder];
+        } else {
+            [self restartGame];
+        }
+    }
+    
+}
+
+- (IBAction)gameOverMessage {
+    
+    NSString *message = [NSString stringWithFormat:@"The correct word was: %@", self.game.correctWord];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GAME OVER"
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"High Scores"
+                                          otherButtonTitles:@"Retry", nil];
+    [alert setTag:1];
+    [alert show];
+    [self.letterInputTextfield resignFirstResponder];
+}
+
+- (IBAction)matchWonMessage {
+    
+    NSString *message = [NSString stringWithFormat:@"Match Score: %ld  Total score: %ld", (long)self.game.matchScore, (long)self.game.gameScore];
+    
+    NSString *title = [NSString stringWithFormat:@"Match %ld won!", (long)self.game.currentMatchNumber];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Next Match", nil];
+    [alert setTag:2];
+    [alert show];
+    [self.letterInputTextfield resignFirstResponder];
+}
+
+- (IBAction)newHighScoreMessage {
+    
+    NSString *message = [NSString stringWithFormat:@"Score: %ld", (long)self.game.gameScore];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New HIGH SCORE!!"
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"High Scores"
+                                          otherButtonTitles:@"New Game", nil];
+    [alert setTag:3];
+    [alert show];
+    [self.letterInputTextfield resignFirstResponder];
+}
+
+- (IBAction)restartGameMessage {
+    
+    NSString *message = @"Are you sure you want to start a new game?";
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Start New Game"
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert setTag:4];
+    [alert show];
+    [self.letterInputTextfield resignFirstResponder];
+}
+
+
+
 #pragma mark - Flipside View Controller
+
+- (IBAction)settingsAndRestartButton:(id)sender {
+    
+    //if tag is 1: SettingsAndNewGameButton = 'Settings' else: 'New Game'.
+    if (self.settingsButton.tag == 1) {
+        //perform segue to the flipside viewcontroller.
+        [self performSegueWithIdentifier:@"showAlternate" sender:self];
+    } else if (self.settingsButton.tag == 2) {
+        
+        [self restartGameMessage];
+    }
+    
+}
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller
 {
@@ -344,22 +407,23 @@
     self.flipsidePopoverController = nil;
 }
 
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
     if ([[segue identifier] isEqualToString:@"showAlternate"]) {
         [[segue destinationViewController] setDelegate:self];
+        
+        FlipsideViewController *flipsideViewController = [segue destinationViewController];
+        flipsideViewController.currentHistory = self.game.history;
         
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
             UIPopoverController *popoverController = [(UIStoryboardPopoverSegue *)segue popoverController];
             self.flipsidePopoverController = popoverController;
             popoverController.delegate = self;
         }
-    } else if ([[segue identifier] isEqualToString:@"showHighScores"]) {
-        HighScoreViewController *hvc = [segue destinationViewController];
-        
     }
 }
-
 
 
 - (IBAction)togglePopover:(id)sender
@@ -375,7 +439,7 @@
 
 #pragma mark - High Score View Controller
 
-- (void)HighScoreViewControllerDidFinish:(FlipsideViewController *)controller
+- (void)HighScoreViewControllerDidFinish:(HighScoreTableViewController *)controller
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -384,6 +448,26 @@
     }
     //restart the game for settings to take effect.
     [self restartGame];
+}
+
+- (NSString *)difficulties: (NSInteger)value {
+    return @[@"Noob", @"Very easy", @"Easy", @"Moderate",@"Hard", @"Very hard",@"Deity"][value-1];
+    
+}
+
+//make sure the user can only play the game in portrait mode
+- (NSUInteger) supportedInterfaceOrientations {
+    // Return a bitmask of supported orientations. If you need more,
+    // use bitwise or (see the commented return).
+    return UIInterfaceOrientationMaskPortrait;
+    // return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+    // Return the orientation you'd prefer - this is what it launches to. The
+    // user can still rotate. You don't have to implement this method, in which
+    // case it launches in the current orientation
+    return UIInterfaceOrientationPortrait;
 }
 
 @end

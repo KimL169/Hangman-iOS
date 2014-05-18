@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "History.h"
 
 
 @class FlipsideViewController;
@@ -15,9 +16,11 @@
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller;
 @end
 
-@interface FlipsideViewController : UIViewController
+@interface FlipsideViewController : UIViewController <UIAlertViewDelegate>
 
 @property (weak, nonatomic) id <FlipsideViewControllerDelegate> delegate;
+
+@property (nonatomic, strong) History *currentHistory;
 
 - (IBAction)done:(id)sender;
 

@@ -7,13 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "GameScore.h"
+#import "MatchScore.h"
 
-@interface History : NSManagedObject
+@interface History : NSObject <NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+@property (nonatomic, retain) NSMutableArray *highScores;
 
 
-@property (nonatomic, retain) NSNumber *score;
-@property (nonatomic, retain) NSNumber *numberOfMatches;
-@property (nonatomic, retain) NSArray *matchWordsAndScoresInGame; //array of arrays.
+@property (nonatomic)NSInteger score;
+@property (nonatomic)NSInteger difficulty;
+@property (nonatomic)NSInteger matchCount;
+
+- (BOOL)newHighScore: (NSInteger)score
+          difficulty:(NSInteger)difficulty
+          matchCount:(NSInteger)matchCount;
+
+- (void)createScore;
+- (NSArray *)fetchScores;
+
+- (void)deleteAllScores;
 
 @end
+
+
