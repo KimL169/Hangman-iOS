@@ -11,7 +11,7 @@
 #import "GameScore.h"
 #import "HighScoreDetailTableViewController.h"
 
-@interface HighScoreTableViewController : UITableViewController
+@interface HighScoreTableViewController : UITableViewController 
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

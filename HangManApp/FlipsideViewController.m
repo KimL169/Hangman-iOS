@@ -149,7 +149,7 @@
     [super viewDidLoad];
 
     //set slider minimum and maximum values.
-    self.maximumWordLengthSlider.maximumValue = 20;
+    self.maximumWordLengthSlider.maximumValue = 24;
     self.maximumWordLengthSlider.minimumValue = 1;
     self.numberOfGuessesAllowedSlider.maximumValue = 26;
     self.numberOfGuessesAllowedSlider.minimumValue = 1;

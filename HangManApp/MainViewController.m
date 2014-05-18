@@ -19,16 +19,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *incorrectGuessesLeftLabel;
 @property (weak, nonatomic) IBOutlet UILabel *guessedLettersLabel;
 @property (weak, nonatomic) IBOutlet UILabel *matchCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *letterNonActiveLabel;
-@property (weak, nonatomic) IBOutlet UILabel *wordNonActiveLabel;
 @property (weak, nonatomic) IBOutlet UILabel *difficultyLabel;
 
 @property (nonatomic, retain) IBOutlet UIImageView * hangmanImage;
 @property (weak, nonatomic) IBOutlet UITextField *letterInputTextfield;
-
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 
 @property (nonatomic) float colorSetting;
+
 
 @end
 
@@ -155,6 +153,7 @@
 
 #pragma mark - updateUI
 
+//updates the UI images and adjusts the labels
 - (void)updateUI:(BOOL)newGame {
     
     self.scoreLabel.text = [NSString stringWithFormat:@"score: %ld", (long)self.game.matchScore];
@@ -211,8 +210,6 @@
             self.difficultyLabel.textColor = [UIColor whiteColor];
             
             self.incorrectGuessesLeftLabel.textColor = [UIColor whiteColor];
-            self.letterNonActiveLabel.textColor = [UIColor whiteColor];
-            self.wordNonActiveLabel.textColor = [UIColor whiteColor];
         }
         
         //Update guesses left
@@ -229,8 +226,6 @@
         self.matchCountLabel.textColor = [UIColor blackColor];
         self.guessedLettersLabel.textColor = [UIColor blackColor];
         self.incorrectGuessesLeftLabel.textColor = [UIColor blackColor];
-        self.letterNonActiveLabel.textColor = [UIColor blackColor];
-        self.wordNonActiveLabel.textColor = [UIColor blackColor];
         self.difficultyLabel.textColor = [UIColor blackColor];
         
         self.matchCountLabel.text = [NSString stringWithFormat:@"match: %lu", (unsigned long)self.game.currentMatchNumber];

@@ -15,7 +15,6 @@
 
 
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
-@property (nonatomic)BOOL gameStarted;
 
 
 @end
