@@ -58,6 +58,8 @@ For a visual representation of the database models please refer to the 'database
 Classes and methods
 ========
 
+## Models
+
 #### HangManGame
 **This class implements the gameplay**
 
@@ -79,6 +81,26 @@ Classes and methods
 - (NSArray *) fetchScores;
 - (void) deleteAllScores;
 - (void) deleteLastScore;
+
+
+## Controllers
+
+#### MainViewController
+This controller controlsthe main view of the hangman game, it initializes the HangManGame.
+
+#### FlipsideViewController
+This is controller controls the settings view of the hangman game it uses NSUserDefaults to store settings
+
+#### HighScoreTableViewController
+This controller controls the high score table view. It shows the users high scores and associated data.
+
+#### HighScoreDetailTableViewController
+This controller controls the detail view that is pushed in when the player taps on a high score in the high 
+score view controller. It shows the contents of the high score (a list of the words it contains with the seperate scores).
+
+#### CoreDataTableViewController
+This is a controller that is used as a parent for the HighScore and HighScoreDetail viewcontrollers.
+It contains logic pertaining to the FetchedResultsViewController that is used to access core data objects in the table view.
 
 Objective - C Style Guide 
 ========
