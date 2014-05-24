@@ -2,7 +2,7 @@
 //  MatchScore.h
 //  HangManApp
 //
-//  Created by Kim on 18/05/14.
+//  Created by Kim on 23/05/14.
 //  Copyright (c) 2014 Kim. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @interface MatchScore : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * incorrectGuesses;
 @property (nonatomic, retain) NSNumber * matchScore;
 @property (nonatomic, retain) NSString * word;
-@property (nonatomic, retain) NSNumber * incorrectGuesses;
 @property (nonatomic, retain) GameScore *gamescore;
 
 @end

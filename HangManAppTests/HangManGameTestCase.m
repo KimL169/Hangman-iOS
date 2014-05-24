@@ -42,60 +42,59 @@
 
 - (void)testCheckLetter {
     HangManGame *game = [[HangManGame alloc]init];
-    game.correctWord = @"pop";
-    game.updatedWordToGuess = @"---";
+    [game setupNewMatch];
+    game.hangmanMatch.correctWord = @"pop";
+    game.hangmanMatch.updatedWordToGuess = @"---";
     [game checkLetter:@"p"];
-    XCTAssertEqual(YES, game.match, @"should be a match");
+    XCTAssertEqual(YES, game.hangmanMatch.match, @"should be a match");
 }
 
 - (void)testUpdatedWordToGuess {
     HangManGame *game = [[HangManGame alloc]init];
-    game.correctWord = @"pop";
-    game.updatedWordToGuess = @"---";
+    [game setupNewMatch];
+    game.hangmanMatch.correctWord = @"pop";
+    game.hangmanMatch.updatedWordToGuess = @"---";
     [game checkLetter:@"p"];
     
     NSString *str = @"p-p";
-    XCTAssertEqualObjects(game.updatedWordToGuess, str, @"should be a equal");
+    XCTAssertEqualObjects(game.hangmanMatch.updatedWordToGuess, str, @"should be a equal");
 }
 
 - (void)testUpdateMatchScore {
     HangManGame *game = [[HangManGame alloc]init];
-    game.matchScore = 10;
-    game.correctWord = @"pop";
-    game.updatedWordToGuess = @"---";
+    [game setupNewMatch];
+    game.hangmanMatch.matchScore = 10;
+    game.hangmanMatch.correctWord = @"pop";
+    game.hangmanMatch.updatedWordToGuess = @"---";
     [game checkLetter:@"x"];
     
-    XCTAssertEqual(game.matchScore, 5, @"should be correct score");
+    XCTAssertEqual(game.hangmanMatch.matchScore, 5, @"should be correct score");
 }
 
 - (void)testIncorrectGuessesLeft {
     HangManGame *game = [[HangManGame alloc]init];
-    game.matchScore = 10;
-    game.correctWord = @"pop";
-    game.updatedWordToGuess = @"---";
     game.incorrectGuessesSetting = 10;
-    game.wrongLetters = @"x";
+    [game setupNewMatch];
+    game.hangmanMatch.matchScore = 10;
+    game.hangmanMatch.correctWord = @"pop";
+    game.hangmanMatch.updatedWordToGuess = @"---";
+    game.hangmanMatch.wrongLetters = @"x";
     [game checkLetter:@"x"];
     
-    XCTAssertEqual(game.incorrectGuessesLeft, 9, @"should be correct number of incorrectguessesLeft");
+    XCTAssertEqual(game.hangmanMatch.incorrectGuessesLeft, 9, @"should be correct number of incorrectguessesLeft");
 }
 
 
 - (void)testUpdateGameScore {
     HangManGame *game = [[HangManGame alloc]init];
-    game.matchScore = 10;
+    [game setupNewMatch];
+    game.hangmanMatch.matchScore = 10;
     game.gameScore = 0;
-    game.correctWord = @"x";
-    game.updatedWordToGuess = @"-";
+    game.hangmanMatch.correctWord = @"x";
+    game.hangmanMatch.updatedWordToGuess = @"-";
     [game checkLetter:@"x"];
     
     XCTAssertEqual(game.gameScore, 10, @"game score should be correct");
-}
-
-- (void)testBaseScore {
-    HangManGame *game = [[HangManGame alloc]init];
-    [game setupNewMatch:@"pop"];
-    XCTAssertEqual(game.matchScore, 60, @"should have correct base score");
 }
 
 -(void)testReturnRandomWordShouldReturnWord {
@@ -135,23 +134,6 @@
     XCTAssertEqual([game returnIncorrectGuessesAccordingToDifficulty], 1, @"incorrect guesses left should be 1");
 }
 
-- (void)testWordToGuessLabelShouldBeCorrectLength {
-    HangManGame *game = [[HangManGame alloc]init];
-    
-    [game setupNewMatch:@"poppy"];
-    
-    XCTAssertEqual([[game updatedWordToGuess] length], 5, @"should be correct length");
-}
-
-- (void)testMatchNumberShouldBeCorrectNumber {
-    
-    HangManGame *game = [[HangManGame alloc]init];
-
-    [game setupNewMatch:@"adsf"];
-    [game setupNewMatch:@"sdfa"];
-    
-    XCTAssertEqual([game currentMatchNumber], 2, @"should be the correct match number");
-}
 
 
 

@@ -10,11 +10,12 @@
 #import "GameScore.h"
 #import "MatchScore.h"
 #import "HighScoreDetailTableViewController.h"
-#import "CoreDataTableViewController.h"
 
 
-@interface HighScoreDetailTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface HighScoreDetailTableViewController : UITableViewController
 
 @property (nonatomic, strong) GameScore *selectedGameScore;
+
+@property (nonatomic, strong)NSManagedObjectContext *managedObjectContext;
 
 @end

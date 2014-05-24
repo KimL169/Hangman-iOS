@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "History.h"
 #import "GameScore.h"
+#import "HangManGame.h"
 
 @interface HistoryTestCase : XCTestCase
 
@@ -35,7 +36,7 @@
     //first empty the database
     [history deleteAllScores];
     //fetch the database
-    NSArray *array1 = [history fetchScores];
+    NSArray *array1 = [history fetchGameScores];
     
     XCTAssertEqual([array1 count], 0, @"contents of array1 should be 0");
 }
@@ -46,11 +47,11 @@
     //first empty the database
     [history deleteAllScores];
     //fetch the database
-    NSArray *array1 = [history fetchScores];
+    NSArray *array1 = [history fetchGameScores];
     
     [history newHighScore:400 difficulty:6 matchCount:9];
     
-    NSArray *array2 = [history fetchScores];
+    NSArray *array2 = [history fetchGameScores];
     
     NSInteger one = [array1 count];
     NSInteger two = [array2 count];
@@ -65,7 +66,7 @@
     [history newHighScore:1000 difficulty:1 matchCount:10];
     
     //fetch from the database
-    NSArray *array1 = [history fetchScores];
+    NSArray *array1 = [history fetchGameScores];
     
     XCTAssertNotEqual([array1 count], 0, @"fetched array should not be empty");
 }
@@ -78,7 +79,7 @@
     //make a new score
     [history newHighScore:400 difficulty:6 matchCount:9];
     
-    NSArray *array1 = [history fetchScores];
+    NSArray *array1 = [history fetchGameScores];
     
     //get the score from database.
     GameScore *score = [array1 objectAtIndex:0];
@@ -94,7 +95,7 @@
     //make a new score
     [history newHighScore:400 difficulty:6 matchCount:9];
     
-    NSArray *array1 = [history fetchScores];
+    NSArray *array1 = [history fetchGameScores];
     
     //get the score from database.
     GameScore *score = [array1 objectAtIndex:0];
@@ -110,7 +111,7 @@
     //make a new score
     [history newHighScore:400 difficulty:6 matchCount:9];
     
-    NSArray *array1 = [history fetchScores];
+    NSArray *array1 = [history fetchGameScores];
     
     //get the score from database.
     GameScore *score = [array1 objectAtIndex:0];
@@ -131,10 +132,35 @@
     }
     
     //fetch the scores
-    NSArray *array1 = [history fetchScores];
+    NSArray *array1 = [history fetchGameScores];
     
     //should return 10 results, not 14
     XCTAssertEqual([array1 count], 10, @"should return correct number of save games (10)");
+}
+
+- (void) testMatchScoreStorage {
+    History *history = [[History alloc]init];
+    [history deleteAllScores];
+    [history newMatchScore:10 word:@"pop" incorrectGuesses:10];
+    NSArray *array1 = [history fetchMatchScores];
+    
+    XCTAssertEqual([array1 count], 1, @"should be saved");
+}
+
+- (void) testMatchScoreShouldBeDeleted {
+    HangManGame *game = [[HangManGame alloc]init];
+    [game.history deleteAllScores];
+    [game.history newMatchScore:10 word:@"pop" incorrectGuesses:10];
+    [game.history newMatchScore:10 word:@"pop" incorrectGuesses:10];
+    [game.history newMatchScore:10 word:@"pop" incorrectGuesses:10];
+    game.gameScore = 100;
+    
+    [game newHighScore];
+    [game.history deleteAllScores];
+    NSArray *array1 = [game.history fetchMatchScores];
+    
+    XCTAssertEqual([array1 count], 0, @"should be 0");
+    
 }
 
 @end

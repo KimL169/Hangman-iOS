@@ -18,6 +18,11 @@
 
 @implementation HangManGame
 
+//default game mode means player can set difficulty which will determine unique characters in words
+//to guess as well as the number of incorrect guesses that the player is allowed to make.
+//custom game setting means the player can select a maximum wordl ength and incorrect guesses allowed.
+#define DEFAULT_GAME_MODE 1
+#define CUSTOM_GAME_MODE 2
 
 #pragma mark initialization
 
@@ -33,15 +38,11 @@
         // create the wordlist.
         NSURL *url = [[NSBundle mainBundle] URLForResource:@"words" withExtension:@"plist"];
         self.wordList = [NSArray arrayWithContentsOfURL:url];
-        //set game started to NO, game will start once a Player inserts his first letter to check.
-        self.gameStarted = NO;
         self.newHighScore = NO;
-        self.updatedWordToGuess = [[NSString alloc]init];
         self.currentMatchNumber = 0;
         
         //init a history object to manage highscores;
         self.history = [[History alloc]init];
-
     }
     return self;
 }
@@ -50,45 +51,22 @@
 
 #pragma mark - new match setup
 
-- (void) setupNewMatch:(NSString *)newWord {
+- (void) setupNewMatch {
     
-    //set game started to no.
-    self.gameStarted = NO;
-    
-    //reset the wrong letters, the word to guess and guesses.
-    self.matchWon = NO;
-    self.gameLost = NO;
-    self.match = NO;
-    self.incorrectGuessesLeft = self.incorrectGuessesSetting;
-    self.updatedWordToGuess = @"";
-    self.correctWord = [newWord lowercaseString];
-    self.wrongLetters = @"";
+    //keep track of the number of matches in a game.
     self.currentMatchNumber += 1;
     
-    //check unique letters in newWord to calculate the base score for a game.
-    self.matchScore = [self setupBaseScore:[self checkUniqueCharactersInWord:self.correctWord]];
-    
-    //fill the wordLabel up with '_'* the length of the word to be quessed
-    for (int i =0; i <newWord.length; i++) {
-        self.updatedWordToGuess = [self.updatedWordToGuess stringByAppendingString: @"-"];
-    }
-    
+    //set up a new match with the correct parameters.
+    self.hangmanMatch = [[Match alloc] initWithCorrectWord:[self returnRandomWord] incorrectGuessesSetting:self.incorrectGuessesSetting];
+
+    //make a valid character set so the user input can be checked for valid letters and ignored if not valid.
+    self.validCharacterSet = [[[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"] invertedSet] mutableCopy];
 }
 
-#pragma mark - score setup
 
-- (NSInteger) setupBaseScore: (NSInteger)charactersInWord {
-    return charactersInWord * 30;
-}
+#pragma mark - score
 
-- (void) updateMatchScore {
-    if (self.matchScore > 0) {
-        self.matchScore -= 5;
-    }
-}
-
-- (void) updateGameScore { self.gameScore += self.matchScore; }
-
+- (void) updateGameScore { self.gameScore += self.hangmanMatch.matchScore; }
 
 
 #pragma mark - create game settings
@@ -106,8 +84,6 @@
         // set default value and save to database
         self.wordLengthMaximum = 15;
         [defaults setInteger:self.wordLengthMaximum forKey:@"maximumWordLength"];
-        NSLog(@"created new wordlength");
-        
     }
     
     //check if a game difficulty setting has been set, else, set a default.
@@ -117,29 +93,25 @@
         //set default value and save default to database.
         self.difficultyRating = 3;
         [defaults setInteger:self.difficultyRating forKey:@"gameDifficulty"];
-        NSLog(@"created new gameDifficulty");
-        
     }
     
-    //check if a gameMode has been selected (1 = default(difficulty mode), 2 = custom).
+    //check if a gameMode has been selected..
     if ([defaults integerForKey:@"gameMode"]) {
         self.gameMode = [defaults integerForKey:@"gameMode"];
     } else {
         //set default value and save to database.
-        self.gameMode = 1;
+        self.gameMode = DEFAULT_GAME_MODE;
         [defaults setInteger:self.gameMode forKey:@"gameMode"];
-        NSLog(@"created new gameMode");
     }
     
     //if game mode is custom, set incorrect guessessetting to the user preferred or default, else use those according to difficulry.
-    if (self.gameMode == 2) {
+    if (self.gameMode == CUSTOM_GAME_MODE) {
         if ([defaults integerForKey:@"numberOfGuessesAllowed"]) {
             self.incorrectGuessesSetting = [defaults integerForKey:@"numberOfGuessesAllowed"];
         } else {
             //Standard Default
             self.incorrectGuessesSetting = 6;
             [defaults setInteger:self.incorrectGuessesSetting forKey:@"numberOfGuessesAllowed"];
-            NSLog(@"created new guessesAllowed");
         }
         
     } else {
@@ -152,64 +124,6 @@
 }
 
 
-
-
-
-#pragma mark - letter check
-
-- (void) checkLetter:(NSString *)letterToCheck {
-    
-    //set game started to YES to not allow user to change settings at this point.
-    self.gameStarted = YES;
-    self.match = NO;
-    NSRange letterRange;
-
-    // check each letter in the word for a match.
-    char check = [letterToCheck characterAtIndex:0];
-    for (int i=0; i < self.correctWord.length; i++) {
-        char temp = [self.correctWord characterAtIndex:i];
-
-        //if match is found add matching letter to letter label.
-        if (check == temp) {
-
-            self.match = YES;
-            letterRange = NSMakeRange(i, 1);//location, length
-            
-            //update the word to guess.
-            self.updatedWordToGuess = [self.updatedWordToGuess stringByReplacingCharactersInRange:letterRange
-                                                                                       withString:letterToCheck];
-        }
-    }
-    //if match is NO: update the wrongletter variable, the incorrect guesses left and the match score.
-    if (self.match == NO) {
-        if (self.incorrectGuessesLeft == 1) {
-            self.gameLost = YES;
-        }
-        //remore the occurence of the character in the wrong letter string if it already exists then append wrong letter.
-        self.wrongLetters = [self.wrongLetters stringByReplacingOccurrencesOfString:letterToCheck withString:@""];
-        self.wrongLetters = [self.wrongLetters stringByAppendingString:letterToCheck];
-        
-        //update the guesses the player has left
-        self.incorrectGuessesLeft = self.incorrectGuessesSetting - [self.wrongLetters length];
-        
-        //update the matchScore
-        [self updateMatchScore];
-
-    } else {
-        
-        //check if the the match is won.
-        if ([self.correctWord isEqualToString:self.updatedWordToGuess]) {
-
-            self.matchWon = YES;
- 
-            //update the gameScore with the matchScore
-            [self updateGameScore];
-        }
-    }
-}
-
-
-
 #pragma mark - word setup
 
 - (NSString *) returnRandomWord {
@@ -219,7 +133,7 @@
     //if the game mode is 1 select a word with the right difficulty
     //else select a word with the user specified max-length.
     
-    if (self.gameMode == 1) {
+    if (self.gameMode == DEFAULT_GAME_MODE) {
         while (true) {
             // pull a random word from the wordlist.
             u_int32_t rnd = arc4random_uniform((int)[self.wordList count]);
@@ -233,34 +147,55 @@
                 
                 continue;
             } else {
-                return word;
+                return [word lowercaseString];
             }
             
         }
-    } else if (self.gameMode == 2) {
+    } else if (self.gameMode == CUSTOM_GAME_MODE) {
 
         while (true) {
             // pull a random word from the wordList.
             uint32_t rnd = arc4random_uniform((int)[self.wordList count]);
             word = self.wordList[rnd];
             
-            //check if the word is the correct length.
+            //check if the word is the correct length and return.
             if (word.length <= self.wordLengthMaximum) {
-                return word;
+                return [word lowercaseString];
             }
         }
 
     }
     
        //return a random word from the list
-    return word;
+    return [word lowercaseString];
     
+}
+
+- (void) checkLetter:(NSString *)letterToCheck {
+    
+    [self.hangmanMatch checkLetter:letterToCheck];
+
+    //if the match has been won, update the game score and store the match.
+    //if the match was lost, check if a new high score was found, if so, let the controller know.
+    if (self.hangmanMatch.matchWon == YES) {
+        [self updateGameScore];
+        [self storeMatchScore];
+    } else if (self.hangmanMatch.matchLost == YES) {
+        if ([self.history newHighScore:self.gameScore
+                            difficulty:self.difficultyRating
+                            matchCount:self.currentMatchNumber] == YES) {
+            
+            self.newHighScore = YES;
+        }
+        
+    }
 }
 
 #pragma mark - utility functions.
 
 //returns the number of unique characters in a word.
 - (NSInteger) checkUniqueCharactersInWord: (NSString *)word {
+
     //get all the unique characters in a string.
     NSString *uniqueCharactersInWord = [[NSString alloc]init];
     
@@ -281,7 +216,7 @@
         }
     }
     //return the number of unique characters.
-    return [uniqueCharactersInWord length];;
+    return [uniqueCharactersInWord length];
 }
 
 //return the right incorrectGuessesSetting for the difficulty level.
@@ -309,4 +244,9 @@
     return 10;
 }
 
+- (void)storeMatchScore {
+    [self.history newMatchScore:self.hangmanMatch.matchScore
+                           word:self.hangmanMatch.correctWord
+               incorrectGuesses: (self.incorrectGuessesSetting - self.hangmanMatch.incorrectGuessesLeft)];
+}
 @end

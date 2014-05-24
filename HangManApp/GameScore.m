@@ -2,7 +2,7 @@
 //  GameScore.m
 //  HangManApp
 //
-//  Created by Kim on 18/05/14.
+//  Created by Kim on 23/05/14.
 //  Copyright (c) 2014 Kim. All rights reserved.
 //
 

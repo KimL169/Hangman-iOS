@@ -34,8 +34,8 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"gameScore" ascending:NO];
     NSArray *sortDescriptors = [[NSArray alloc]initWithObjects:sortDescriptor, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
-    
-
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"gameScore > 0"];
+    [fetchRequest setPredicate:predicate];
     _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:[self managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
     
     return _fetchedResultsController;
@@ -44,16 +44,6 @@
 //get the managedObjectContext from the app delegate.
 - (NSManagedObjectContext *)managedObjectContext {
     return  [(AppDelegate *)[[UIApplication sharedApplication]delegate]managedObjectContext];
-}
-
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
 }
 
 - (void)viewDidLoad
@@ -141,27 +131,6 @@
 */
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        NSManagedObject *objToDelete = (NSManagedObject *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        
-        //delete the object from the database.
-        [context deleteObject:objToDelete];
-        
-        //save and check for errors
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
-            return;
-        }
-    }
-}
-
 
 #pragma mark - Navigation
 

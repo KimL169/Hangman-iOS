@@ -13,121 +13,17 @@
 
 @interface HighScoreDetailTableViewController ()
 
-@property (nonatomic, strong)NSManagedObjectContext *mangedObjectContext;
 @property (nonatomic, strong)NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation HighScoreDetailTableViewController
 
-@synthesize selectedGameScore;
 
-//get the managed object context from the AppDelegate.
 - (NSManagedObjectContext *)managedObjectContext {
     return  [(AppDelegate *)[[UIApplication sharedApplication]delegate]managedObjectContext];
-    
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-
-    
-    // Return the number of sections.
-    return [[self.fetchedResultsController sections]count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-
-    id <NSFetchedResultsSectionInfo> secInfo = [[self.fetchedResultsController sections]objectAtIndex:section];
-    
-    // Return the number of rows in the section.
-    return [secInfo numberOfObjects];
-    // Return the number of rows in the section.
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    // Configure the cell...
-    MatchScore *matchScore = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    cell.textLabel.text = matchScore.word;
-    NSLog(@"cell: %@", matchScore);
-    
-    return cell;
-}
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Fetched Results Controller section
 - (NSFetchedResultsController *)fetchedResultsController {
@@ -135,26 +31,82 @@
         return  _fetchedResultsController;
     }
     
+    //make a fetch request and set GameScore as the entity to fetch.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MatchScore" inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MatchScore" inManagedObjectContext:[self managedObjectContext]];
     [fetchRequest setEntity:entity];
-
     
-    //set the relationship as a predicate get only matchscores with a relation to the selected gamescore.
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"gamescore = %@", selectedGameScore];
-    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"gamescore == %@", self.selectedGameScore];
     [fetchRequest setPredicate:predicate];
-    
+    // Specify criteria for filtering which objects to fetch
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"matchScore" ascending:NO];
     NSArray *sortDescriptors = [[NSArray alloc]initWithObjects:sortDescriptor, nil];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:nil];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:[self managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
     
     return _fetchedResultsController;
 }
+
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    //load in the data
+    NSError *error = nil;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        NSLog(@"Error fetching data: %@", error);
+        abort();
+    }
+}
+
+- (void)didReceiveMemoryWarning {
+    
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Table view data source
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    // Return the number of sections.
+    return [[self.fetchedResultsController sections]count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    //ask the fetchResultsController for the sections array. Go into particular one based on the index section parameter.
+    id <NSFetchedResultsSectionInfo> secInfo = [[self.fetchedResultsController sections]objectAtIndex:section];
+    
+    // Return the number of rows in the section.
+    return [secInfo numberOfObjects];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    //configure cell.
+    MatchScore *matchScore = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [matchScore word]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Score: %d   |   Incorrect Guesses: %d",
+                                 [[matchScore matchScore] intValue], [[matchScore incorrectGuesses] intValue]];
+    
+    
+    
+    //if the game has a difficulty display it
+
+    
+    return cell;
+}
+
+
 
 //make sure the user can only play the game in portrait mode
 - (NSUInteger) supportedInterfaceOrientations {

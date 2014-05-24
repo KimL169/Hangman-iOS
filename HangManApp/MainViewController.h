@@ -7,11 +7,13 @@
 //
 
 #import "FlipsideViewController.h"
+#import "WebViewController.h"
 #import "HighScoreTableViewController.h"
 #import "History.h"
 #import "HangManGame.h"
+#import "Match.h"
 
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate>
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate, UIAlertViewDelegate, UIWebViewDelegate>
 
 
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;

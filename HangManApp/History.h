@@ -24,29 +24,41 @@
 @interface History : NSObject <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) NSMutableArray *highScores;
 @property (nonatomic)NSInteger score;
 @property (nonatomic)NSInteger difficulty;
 @property (nonatomic)NSInteger matchCount;
 
+@property (nonatomic, strong) GameScore *gameScore;
+@property (nonatomic, strong) MatchScore *matchScore;
 
-//check if a new high score was acheived if so, save it.
+
+//check if a new high score was achieved if so, save it.
 //make sure the database only contains 10 records and delete the lowest if necessary.
 - (BOOL) newHighScore: (NSInteger)score
           difficulty:(NSInteger)difficulty
           matchCount:(NSInteger)matchCount;
 
+- (void) newMatchScore: (NSInteger)score
+                  word: (NSString *)word
+      incorrectGuesses:(NSInteger)incorrectGuesses;
+
 //saves a new game score to the database.
-- (void) createScore;
+- (void) createHighScore;
 
 //fetch all the records from the database.
-- (NSArray *) fetchScores;
+- (NSArray *) fetchGameScores;
 
 //delete all records from the database.
 - (void) deleteAllScores;
 
 //delete only the last(lowest) score from the database.
 - (void) deleteLastScore;
+
+//fetch only the matchscores from the database.
+- (NSArray *) fetchMatchScores;
+
+//designated initializer.
+- (instancetype) init;
 
 @end
 

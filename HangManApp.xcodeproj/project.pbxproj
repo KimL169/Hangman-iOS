@@ -28,14 +28,12 @@
 		3B40CDE9191633FB003E7CE1 /* giphy17.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B40CDD8191633FB003E7CE1 /* giphy17.png */; };
 		3B40CDEA191633FB003E7CE1 /* giphy18.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B40CDD9191633FB003E7CE1 /* giphy18.png */; };
 		3B4544BD190FAB0D00B05030 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4544BC190FAB0D00B05030 /* History.m */; };
-		3B5D304619289B6300ABDCE3 /* MatchScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D304519289B6300ABDCE3 /* MatchScore.m */; };
-		3B5D304919289B6400ABDCE3 /* GameScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D304819289B6400ABDCE3 /* GameScore.m */; };
 		3B5D304D19289F8600ABDCE3 /* DesignDoc.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D304C19289F8600ABDCE3 /* DesignDoc.md */; };
-		3B5D30531928B25400ABDCE3 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D30521928B25400ABDCE3 /* CoreDataTableViewController.m */; };
 		3B5D30561928FFB800ABDCE3 /* UI design mockup.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D30551928FFB800ABDCE3 /* UI design mockup.png */; };
 		3B5D30581929001700ABDCE3 /* datamodel design mockup.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B5D30571929001700ABDCE3 /* datamodel design mockup.png */; };
 		3B5D5B4D192622F100E08FD7 /* HighScoreDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D5B4C192622F100E08FD7 /* HighScoreDetailTableViewController.m */; };
 		3B61D63A191243B40008D7A5 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B61D639191243B40008D7A5 /* words.plist */; };
+		3B6941FA1930A25100FC4431 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6941F91930A25100FC4431 /* WebViewController.m */; };
 		3B6FD671190949AC00CB2C85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6FD670190949AC00CB2C85 /* Foundation.framework */; };
 		3B6FD673190949AC00CB2C85 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6FD672190949AC00CB2C85 /* CoreGraphics.framework */; };
 		3B6FD675190949AC00CB2C85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6FD674190949AC00CB2C85 /* UIKit.framework */; };
@@ -51,11 +49,14 @@
 		3B6FD698190949AC00CB2C85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6FD674190949AC00CB2C85 /* UIKit.framework */; };
 		3B6FD6A0190949AC00CB2C85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B6FD69E190949AC00CB2C85 /* InfoPlist.strings */; };
 		3B80B3E61927D3020090BD01 /* HistoryTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B80B3E51927D3020090BD01 /* HistoryTestCase.m */; };
+		3B917249192B4EFE00808A45 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B917248192B4EFE00808A45 /* Match.m */; };
 		3BB7477819240DBD00B24C53 /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BB7477719240DBD00B24C53 /* small.plist */; };
 		3BB748BE1925FB5B00B24C53 /* HighScoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB748BD1925FB5B00B24C53 /* HighScoreTableViewController.m */; };
 		3BD1DEF6190AB3A800C9B2C4 /* sun-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD1DEF5190AB3A800C9B2C4 /* sun-01.png */; };
 		3BD1DEF8190AB56900C9B2C4 /* moon-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD1DEF7190AB56800C9B2C4 /* moon-01.png */; };
 		3BD1DEFB190AC1B400C9B2C4 /* HangManGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1DEFA190AC1B400C9B2C4 /* HangManGame.m */; };
+		3BDDED1A192F355300025909 /* MatchScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDDED19192F355300025909 /* MatchScore.m */; };
+		3BDDED1D192F355400025909 /* GameScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDDED1C192F355400025909 /* GameScore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,18 +92,14 @@
 		3B40CDD9191633FB003E7CE1 /* giphy18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = giphy18.png; sourceTree = "<group>"; };
 		3B4544BB190FAB0D00B05030 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
 		3B4544BC190FAB0D00B05030 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
-		3B5D304419289B6300ABDCE3 /* MatchScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchScore.h; sourceTree = "<group>"; };
-		3B5D304519289B6300ABDCE3 /* MatchScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchScore.m; sourceTree = "<group>"; };
-		3B5D304719289B6400ABDCE3 /* GameScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScore.h; sourceTree = "<group>"; };
-		3B5D304819289B6400ABDCE3 /* GameScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScore.m; sourceTree = "<group>"; };
 		3B5D304C19289F8600ABDCE3 /* DesignDoc.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DesignDoc.md; sourceTree = "<group>"; };
-		3B5D30511928B25400ABDCE3 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
-		3B5D30521928B25400ABDCE3 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		3B5D30551928FFB800ABDCE3 /* UI design mockup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UI design mockup.png"; sourceTree = "<group>"; };
 		3B5D30571929001700ABDCE3 /* datamodel design mockup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "datamodel design mockup.png"; sourceTree = "<group>"; };
 		3B5D5B4B192622F100E08FD7 /* HighScoreDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighScoreDetailTableViewController.h; path = ../HighScoreDetailTableViewController.h; sourceTree = "<group>"; };
 		3B5D5B4C192622F100E08FD7 /* HighScoreDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HighScoreDetailTableViewController.m; path = ../HighScoreDetailTableViewController.m; sourceTree = "<group>"; };
 		3B61D639191243B40008D7A5 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
+		3B6941F81930A25100FC4431 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		3B6941F91930A25100FC4431 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		3B6FD66D190949AC00CB2C85 /* HangManApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HangManApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6FD670190949AC00CB2C85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3B6FD672190949AC00CB2C85 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -124,6 +121,8 @@
 		3B6FD69D190949AC00CB2C85 /* HangManAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HangManAppTests-Info.plist"; sourceTree = "<group>"; };
 		3B6FD69F190949AC00CB2C85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B80B3E51927D3020090BD01 /* HistoryTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTestCase.m; sourceTree = "<group>"; };
+		3B917247192B4EFE00808A45 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
+		3B917248192B4EFE00808A45 /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
 		3BB7477719240DBD00B24C53 /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
 		3BB748BC1925FB5B00B24C53 /* HighScoreTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighScoreTableViewController.h; path = ../HighScoreTableViewController.h; sourceTree = "<group>"; };
 		3BB748BD1925FB5B00B24C53 /* HighScoreTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HighScoreTableViewController.m; path = ../HighScoreTableViewController.m; sourceTree = "<group>"; };
@@ -131,6 +130,10 @@
 		3BD1DEF7190AB56800C9B2C4 /* moon-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moon-01.png"; sourceTree = "<group>"; };
 		3BD1DEF9190AC1B400C9B2C4 /* HangManGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HangManGame.h; sourceTree = "<group>"; };
 		3BD1DEFA190AC1B400C9B2C4 /* HangManGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HangManGame.m; sourceTree = "<group>"; };
+		3BDDED18192F355300025909 /* MatchScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchScore.h; sourceTree = "<group>"; };
+		3BDDED19192F355300025909 /* MatchScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchScore.m; sourceTree = "<group>"; };
+		3BDDED1B192F355400025909 /* GameScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScore.h; sourceTree = "<group>"; };
+		3BDDED1C192F355400025909 /* GameScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +191,8 @@
 				3B5D30541928B43C00ABDCE3 /* database models */,
 				3BD1DEF9190AC1B400C9B2C4 /* HangManGame.h */,
 				3BD1DEFA190AC1B400C9B2C4 /* HangManGame.m */,
+				3B917247192B4EFE00808A45 /* Match.h */,
+				3B917248192B4EFE00808A45 /* Match.m */,
 				3B4544BB190FAB0D00B05030 /* History.h */,
 				3B4544BC190FAB0D00B05030 /* History.m */,
 			);
@@ -208,10 +213,10 @@
 			isa = PBXGroup;
 			children = (
 				3B05D32E192295AF007773E4 /* HistoryModel.xcdatamodeld */,
-				3B5D304719289B6400ABDCE3 /* GameScore.h */,
-				3B5D304819289B6400ABDCE3 /* GameScore.m */,
-				3B5D304419289B6300ABDCE3 /* MatchScore.h */,
-				3B5D304519289B6300ABDCE3 /* MatchScore.m */,
+				3BDDED1B192F355400025909 /* GameScore.h */,
+				3BDDED1C192F355400025909 /* GameScore.m */,
+				3BDDED18192F355300025909 /* MatchScore.h */,
+				3BDDED19192F355300025909 /* MatchScore.m */,
 			);
 			name = "database models";
 			sourceTree = "<group>";
@@ -252,8 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				3B6FD682190949AC00CB2C85 /* Main_iPhone.storyboard */,
-				3B5D30511928B25400ABDCE3 /* CoreDataTableViewController.h */,
-				3B5D30521928B25400ABDCE3 /* CoreDataTableViewController.m */,
+				3B6941F81930A25100FC4431 /* WebViewController.h */,
+				3B6941F91930A25100FC4431 /* WebViewController.m */,
 				3BB748BC1925FB5B00B24C53 /* HighScoreTableViewController.h */,
 				3BB748BD1925FB5B00B24C53 /* HighScoreTableViewController.m */,
 				3B5D5B4B192622F100E08FD7 /* HighScoreDetailTableViewController.h */,
@@ -436,15 +441,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B6FD681190949AC00CB2C85 /* AppDelegate.m in Sources */,
+				3B6941FA1930A25100FC4431 /* WebViewController.m in Sources */,
+				3B917249192B4EFE00808A45 /* Match.m in Sources */,
 				3B5D5B4D192622F100E08FD7 /* HighScoreDetailTableViewController.m in Sources */,
-				3B5D30531928B25400ABDCE3 /* CoreDataTableViewController.m in Sources */,
-				3B5D304619289B6300ABDCE3 /* MatchScore.m in Sources */,
+				3BDDED1A192F355300025909 /* MatchScore.m in Sources */,
 				3B6FD68A190949AC00CB2C85 /* MainViewController.m in Sources */,
-				3B5D304919289B6400ABDCE3 /* GameScore.m in Sources */,
 				3B6FD68D190949AC00CB2C85 /* FlipsideViewController.m in Sources */,
 				3B6FD67D190949AC00CB2C85 /* main.m in Sources */,
 				3BD1DEFB190AC1B400C9B2C4 /* HangManGame.m in Sources */,
 				3B4544BD190FAB0D00B05030 /* History.m in Sources */,
+				3BDDED1D192F355400025909 /* GameScore.m in Sources */,
 				3BB748BE1925FB5B00B24C53 /* HighScoreTableViewController.m in Sources */,
 				3B05D330192295AF007773E4 /* HistoryModel.xcdatamodeld in Sources */,
 			);
