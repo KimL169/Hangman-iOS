@@ -24,8 +24,6 @@
 @property (nonatomic, retain) IBOutlet UIImageView *hangmanImage;
 @property (weak, nonatomic) IBOutlet UITextField *letterInputTextfield;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
-@property (nonatomic, weak) IBOutlet UIWebView *lookupWebView;
-
 @property (nonatomic) float colorSetting;
 
 
