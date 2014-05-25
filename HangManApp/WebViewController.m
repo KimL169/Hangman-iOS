@@ -29,7 +29,7 @@
 {
     [super viewWillAppear:animated];
     
-    //the loadURL contains the web adress
+    //the loadURL will load the URL that is given in the MainViewController.
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:self.loadURL];
     [self.webView loadRequest:urlRequest];
 }

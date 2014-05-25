@@ -62,12 +62,6 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
 
@@ -94,18 +88,13 @@
     //configure cell.
     MatchScore *matchScore = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    //display the word the user guessed and the amount of incorrect guesses the user made.
     cell.textLabel.text = [NSString stringWithFormat:@"%@", [matchScore word]];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"Score: %d   |   Incorrect Guesses: %d",
                                  [[matchScore matchScore] intValue], [[matchScore incorrectGuesses] intValue]];
     
-    
-    
-    //if the game has a difficulty display it
-
-    
     return cell;
 }
-
 
 
 //make sure the user can only play the game in portrait mode

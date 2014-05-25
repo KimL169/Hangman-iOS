@@ -10,7 +10,6 @@
 #import "WebViewController.h"
 
 
-
 @interface MainViewController ()
 
 @property (strong, nonatomic) HangManGame *game;
@@ -76,7 +75,7 @@
     //hide the text input field.
     [self.letterInputTextfield setHidden:YES];
     
-    //set up a new word.
+    //set up a new match with a new word.
     [self.game setupNewMatch];
 
     //call updateUI to set the UILabels.
@@ -113,16 +112,19 @@
         inputLetter = [inputLetter lowercaseString];
         [self.game checkLetter:inputLetter];
         
-        //if no match was found, check if the match was lost and if a new highscore was reached.
+        //if no matching letter was found, check if the match was lost and if a new highscore was reached.
         if (self.game.hangmanMatch.match == NO) {
             
             if (self.game.hangmanMatch.matchLost == YES && self.game.newHighScore == NO) {
+                //game over
                 [self updateUI:NO];
                 [self gameOverMessage];
             } else if (self.game.hangmanMatch.matchLost == YES && self.game.newHighScore == YES) {
+                //new high score
                 [self updateUI:NO];
                 [self newHighScoreMessage];
             } else  {
+                
                 //the match wasn't lost: update the guessed letter label and the UI.
                 [self updateGuessedLetterLabel:inputLetter];
                 [self updateUI:NO];
@@ -312,6 +314,7 @@
     
 }
 
+//create a dictionary URL from the correct word.
 - (NSString *)dictionaryLinkFromWord: (NSString *)word {
     
     NSString *url = [NSString stringWithFormat:@"http://dictionary.reference.com/browse/%@?s=t", word];

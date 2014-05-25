@@ -21,10 +21,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *difficultySlider;
 @property (nonatomic, strong) UIAlertView *alertView;
 
-
-
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSwitch;
-
 @property (nonatomic) NSInteger gameMode;
 
 @end
@@ -35,58 +32,21 @@
 
 #define kSTEPFRACTION 1
 
+//default game mode is difficulty settings, custom is user defined maxWordlength and guesses.
+#define DEFAULT_GAME_MODE 1
+#define CUSTOM_GAME_MODE 2
+
+
+#pragma mark - Maximum Word Length
+
 - (IBAction)changeMaximumWordLength:(UISlider *)sender {
     //get current value of slider, round the number.
     UISlider *slider = (UISlider *)sender;
     slider.value = lround(slider.value);
     
-    //set slider label
+    //set slider label to display the slider value.
     NSInteger val = slider.value;
     self.maximumWordLengthLabel.text = [NSString stringWithFormat:@"Maximum word length: %d", (int)val];
-    
-}
-- (IBAction)resetHighScores:(UIButton *)sender {
-    //show alert message
-    [self resetHighScoreMessage];
-}
-
-// if retry button is pressed, set up a new game else Show High Score
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-
-    if (buttonIndex == [alertView cancelButtonIndex]) {
-        // nothing
-    } else {
-        //delete all high scores
-        [self.currentHistory deleteAllScores];
-    }
-
-}
-
-
-- (IBAction)resetHighScoreMessage {
-    
-    self.alertView = [[UIAlertView alloc]initWithTitle:@"Reset All High Scores"
-                                               message:@"Do you wish to delete all your previous high scores?"
-                                              delegate:self
-                                     cancelButtonTitle:@"No"
-                                     otherButtonTitles:@"Yes", nil];
-
-    [self.alertView show];
-}
-
-- (IBAction)changeDifficulty:(UISlider *)sender {
-    UISlider *slider = (UISlider *)sender;
-    slider.value = lround(slider.value);
-    
-    //set slider label
-    NSInteger val = slider.value;
-    self.difficultyLabel.text = [NSString stringWithFormat:@"Difficulty: %@", [self difficulties:val]];
-}
-
-
-
-- (NSString *)difficulties: (NSInteger)value {
-    return @[@"Noob", @"Very easy", @"Easy", @"Moderate",@"Hard", @"Very hard",@"Deity"][value-1];
     
 }
 
@@ -101,6 +61,87 @@
 }
 
 
+
+#pragma mark - Reset High Score
+
+- (IBAction)resetHighScores:(UIButton *)sender {
+    [self resetHighScoreMessage];
+}
+
+//display an alert message if the user presses the 'reset high scores' button.
+- (IBAction)resetHighScoreMessage {
+    
+    self.alertView = [[UIAlertView alloc]initWithTitle:@"Reset All High Scores"
+                                               message:@"Do you wish to delete all your previous high scores?"
+                                              delegate:self
+                                     cancelButtonTitle:@"No"
+                                     otherButtonTitles:@"Yes", nil];
+
+    [self.alertView show];
+}
+
+//alert message logic for the High Score delete message.
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == [alertView cancelButtonIndex]) {
+        // nothing
+    } else {
+        //delete all high scores
+        [self.currentHistory deleteAllScores];
+    }
+}
+
+
+#pragma mark - Difficulty Settings
+
+- (IBAction)changeDifficulty:(UISlider *)sender {
+    UISlider *slider = (UISlider *)sender;
+    slider.value = lround(slider.value);
+    
+    //set slider label to display the slider value.
+    NSInteger val = slider.value;
+    self.difficultyLabel.text = [NSString stringWithFormat:@"Difficulty: %@", [self difficulties:val]];
+}
+
+
+- (NSString *)difficulties: (NSInteger)value {
+    return @[@"Noob", @"Very easy", @"Easy", @"Moderate",@"Hard", @"Very hard",@"Deity"][value-1];
+    
+}
+
+#pragma mark - Match Mode Settings
+
+//match mode segment control.
+- (IBAction)changeMatchMode:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        self.gameMode = DEFAULT_GAME_MODE;
+    } else {
+        self.gameMode = CUSTOM_GAME_MODE;
+    }
+    [self gameModeUISettings];
+}
+
+- (void)gameModeUISettings {
+    if (self.gameMode == DEFAULT_GAME_MODE) {
+        [self.maximumWordLengthSlider setUserInteractionEnabled:NO];
+        [self.numberOfGuessesAllowedSlider setUserInteractionEnabled:NO];
+        [self.maximumWordLengthLabel setTextColor:[UIColor grayColor]];
+        [self.numberOfGuessesAllowedLabel setTextColor:[UIColor grayColor]];
+        [self.difficultyLabel setTextColor:[UIColor whiteColor]];
+        [self.difficultySlider setUserInteractionEnabled:YES];
+        
+    } else if (self.gameMode == CUSTOM_GAME_MODE) {
+        [self.maximumWordLengthSlider setUserInteractionEnabled:YES];
+        [self.numberOfGuessesAllowedSlider setUserInteractionEnabled:YES];
+        [self.maximumWordLengthLabel setTextColor:[UIColor whiteColor]];
+        [self.numberOfGuessesAllowedLabel setTextColor:[UIColor whiteColor]];
+        [self.difficultyLabel setTextColor:[UIColor grayColor]];
+        [self.difficultySlider setUserInteractionEnabled:NO];
+    }
+}
+
+
+# pragma mark - Save Settings
 
 //when save settings is pressed
 - (IBAction)saveSettingsButton:(UIButton *)sender {
@@ -128,21 +169,14 @@
     [self.delegate flipsideViewControllerDidFinish:self];
 }
 
+
+
 - (void)awakeFromNib
 {
     self.preferredContentSize = CGSizeMake(320.0, 480.0);
     [super awakeFromNib];
 }
 
-//match mode segment control.
-- (IBAction)changeMatchMode:(UISegmentedControl *)sender {
-    if (sender.selectedSegmentIndex == 0) {
-        self.gameMode = 1;
-    } else {
-        self.gameMode = 2;
-    }
-    [self gameModeUISettings];
-}
 
 - (void)viewDidLoad
 {
@@ -162,7 +196,7 @@
     if ([defaults integerForKey:@"gameMode"]) {
         self.gameMode = [defaults integerForKey:@"gameMode"];
     } else {
-        self.gameMode = 1;
+        self.gameMode = DEFAULT_GAME_MODE;
     }
     
     //get the User Default values.
@@ -182,39 +216,10 @@
     //set the match mode segment control to right value.
     self.gameModeSwitch.selectedSegmentIndex = (self.gameMode-1);
     
-    
-
-
-
-    
     //check the game mode and adjust the UI accordingly
     [self gameModeUISettings];
 }
 
-- (void)gameModeUISettings {
-    if (self.gameMode == 1) {
-        [self.maximumWordLengthSlider setUserInteractionEnabled:NO];
-        [self.numberOfGuessesAllowedSlider setUserInteractionEnabled:NO];
-        [self.maximumWordLengthLabel setTextColor:[UIColor grayColor]];
-        [self.numberOfGuessesAllowedLabel setTextColor:[UIColor grayColor]];
-        [self.difficultyLabel setTextColor:[UIColor whiteColor]];
-        [self.difficultySlider setUserInteractionEnabled:YES];
-    } else if (self.gameMode == 2) {
-        [self.maximumWordLengthSlider setUserInteractionEnabled:YES];
-        [self.numberOfGuessesAllowedSlider setUserInteractionEnabled:YES];
-        [self.maximumWordLengthLabel setTextColor:[UIColor whiteColor]];
-        [self.numberOfGuessesAllowedLabel setTextColor:[UIColor whiteColor]];
-        [self.difficultyLabel setTextColor:[UIColor grayColor]];
-        [self.difficultySlider setUserInteractionEnabled:NO];
-    }
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Actions
 
